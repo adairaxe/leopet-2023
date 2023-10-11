@@ -1,0 +1,51 @@
+.fund-don-dialog {
+    .fund-txt-24{
+        color: #028596 ;
+        align-content: center;
+        
+        
+    }
+    
+
+    .seccion-detalle-row {
+        display: flex;
+        flex-direction: row;
+    }
+
+
+    .fund-form-field {
+
+        input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            background: none;
+            outline: none;
+            resize: none;
+            border: 0;
+            font-family: 'Montserrat', sans-serif;
+            transition: all .3s;
+            margin-left: 10px;           
+        }
+        .icono-seccion-column{
+            color: #028596;
+            font-size: 25px;
+            
+        }
+        .fund-txt-12-column{
+            color: black;
+            margin-top: 15px;
+        }
+        
+    }
+    .fund-form-buttons-row{
+        margin-top: 20px;
+        align-items: center;
+        margin-left: 55px;
+        .fund-btn{
+            width: 100px;
+            margin: 15px;
+        }
+    }
+
+}

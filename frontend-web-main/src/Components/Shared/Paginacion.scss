@@ -1,0 +1,14 @@
+.fund-footer-pagination {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  height: 80px;
+  .fund-pagination-btn {
+    background-color: transparent;
+    border: none;
+  }
+  .fund-bold {
+    font-weight: bold;
+  }
+}

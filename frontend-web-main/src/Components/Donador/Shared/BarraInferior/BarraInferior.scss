@@ -1,0 +1,276 @@
+.fas[data-count]{
+  position:relative;
+}
+.fas[data-count]:after{
+  position: absolute;
+  right: -0.75em;
+  top: -.75em;
+  content: attr(data-count);
+  padding: .5em;
+  border-radius: 10em;
+  line-height: .9em;
+  color: white;
+  background: rgba(255,0,0,.75);
+  text-align: center;
+  min-width: 2em;
+  font: bold .4em sans-serif;
+}
+
+
+.fund-don-barra-inferior {
+  position: fixed;
+  bottom: 0px;
+  box-shadow: 1px -3px 4px rgba(0, 0, 0, 0.25);
+  background-color: var(--third-color);
+  height: 64px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  .fund-don-barra-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    &.selected,
+    &.selected i {
+      color: var(--primary-color) !important;
+    }
+  }
+
+
+}
+i{
+  color: #028596 !important;
+  .fund-don-manadas-content {
+
+    margin-bottom: 64px;
+
+    .fund-manadas-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .infinite-scroll-component {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+    }
+
+    .fund-editar-manada {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-left: 20px;
+      margin-top: 0%;
+    }
+
+
+    .fund-txt-6 {
+      color: var(--primary-color) !important;
+    }
+
+    .fund-manada-icons {
+      height: 170px;
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 16px;
+      border-radius: 16px;
+      min-height: 130px;
+      padding: 16px;
+      justify-content: center;
+      align-items: center;
+
+      i {
+        color: var(--primary-color) !important;
+        font-size: 100px;
+      }
+
+    }
+
+    .fund-manada {
+      height: 105px;
+      width: 300px;
+      margin-left: 20px;
+      border-radius: 16px;
+
+      .fund-txt-12-green {
+        font-size: 16px !important;
+        color: #028596;
+        font-weight: bold;
+        margin-left: 5px;
+
+      }
+
+
+      .fund-txt-10 {
+        margin-left: 5px;
+      }
+
+      .fund-ml-16 {
+        margin-right: 30px;
+        color: black;
+
+        .fund-txt-6 {
+          color: black !important;
+        }
+
+      }
+
+      .fund-flx {
+        padding: 0%;
+
+
+      }
+
+      .fund-animal-foto {
+        margin-left: 16px;
+
+        img {
+          border-radius: 16px;
+          width: 150px;
+          height: 130px;
+        }
+      }
+
+
+      .fund-txt-dato {
+        font-size: 12px !important;
+        font-weight: normal;
+        padding-bottom: 5px;
+        margin-left: 5px;
+
+      }
+
+      .fund-data-animal {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 12px;
+
+      }
+
+      .fund-data-manada {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 12px;
+
+
+      }
+
+      .fund-animal-icons {
+        display: flex;
+
+        i {
+          color: var(--primary-color) !important;
+
+        }
+      }
+    }
+
+  }
+
+  @media (min-width: 400px) {
+    .fund-don-manadas-content {
+      .fund-manada {
+        height: 172px;
+
+        .fund-animal-foto {
+          border-radius: 16px;
+          width: 210px;
+          height: 140px;
+          min-height: 140px;
+        }
+
+        .fund-manada-descripcion {
+          width: calc(100% - 16px);
+          max-width: calc(100% - 16px);
+        }
+      }
+    }
+  }
+
+}
+
+@media (min-width: 400px) {
+  .fund-don-barra-inferior {
+    .fund-don-barra-item {
+      width: 80px;
+    }
+  }
+}
+
+.fun-don-barra-nav{
+  background-color: #f08e86;
+  height: 64px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  align-items: center;
+
+}
+
+.barra-items{
+  display: flex;
+  flex-direction:row;
+  width: 1550px;
+  //background-color: blue;
+  .fun-don-barra-items{
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
+    align-items: flex-start;
+    width: 120px;
+    margin-left: 0px;
+    margin-right: 10px;
+    font-size: 18px;
+    color: #0c8393 !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    &:hover {
+      color: #c1dbdf !important;
+    }
+  }
+ }
+
+
+.navbarLeopet-logo{
+  display: flex;
+  flex-direction: column;
+  justify-content: center !important;
+}
+
+.navbarLeopet-button-login {
+  background-color: #0c8393 !important;
+  width: 90px;
+  color: white !important;
+  font-weight: bold !important;
+  border: 0px solid white !important;
+  box-sizing: border-box;
+  box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.1);
+  margin-right: 70px;
+  &:hover {
+    background-color:white !important;
+    color: #0c8393 !important;
+  }
+}
+
+.column{
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+  width: 100px;
+}
+
+

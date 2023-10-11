@@ -1,0 +1,83 @@
+.fund-loading,
+.fund-empty,
+.fund-error {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  color: var(--fourth-color);
+  top: 0px;
+  height: 100%;
+  left: 0;
+  width: 100%;
+  z-index: -100;
+}
+.fund-error {
+  flex-direction: column;
+  padding: 16px;
+  i {
+    font-size: 48px;
+    min-width: 50px;
+    min-height: 50px;
+    margin-bottom: 16px;
+  }
+}
+.fund-loading-cards {
+  height: 60px;
+}
+
+.barra-titulo-especie {
+  //background-color: var(--third-color);;
+  height: 64px;
+  //padding: 16px;
+  padding-bottom: 0px;
+  //margin-bottom: 50px;
+  display: flex;
+  //justify-content: flex-end;
+  //align-items: center;
+}
+
+.fund-donador {
+  height: 100vh;
+}
+
+@media (min-width: 600px) {
+  .fund-donador {
+    .fund-txt-32 {
+      font-size: 48px !important;
+    }
+
+    .fund-txt-24 {
+      font-size: 32px !important;
+    }
+
+    .fund-txt-14 {
+      font-size: 16px !important;
+    }
+
+    .fund-txt-14-bold {
+      font-size: 16px !important;
+    }
+
+    .fund-txt-16 {
+      font-size: 24px !important;
+    }
+
+    .fund-txt-12 {
+      font-size: 16px !important;
+    }
+
+    .fund-txt-10 {
+      font-size: 16px !important;
+    }
+
+    .fund-txt-8 {
+      font-size: 14px !important;
+    }
+
+    .fund-txt-6 {
+      font-size: 12px !important;
+    }
+  }
+}

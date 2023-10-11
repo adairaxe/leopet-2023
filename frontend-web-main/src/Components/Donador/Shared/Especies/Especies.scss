@@ -1,0 +1,22 @@
+.fund-don-barra-especies {
+  background-color: var(--third-color);
+  height: 64px;
+  //box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  width: 100%;
+  overflow-x: auto;
+  align-items: center;
+  padding: 16px;
+  //padding-bottom: 4px;
+  position: sticky;
+  //top: 64px;
+  .fund-don-tab {
+    cursor: pointer;
+    padding-left: 24px;
+    padding-right: 24px;
+    &.selected {
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--primary-color);
+    }
+  }
+}

@@ -1,0 +1,57 @@
+.fund-don-animals-historial {
+  margin: 16px;
+  margin-bottom: 64px;
+  .fund-historial-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    .fund-return {
+      align-items: baseline;
+    }
+  }
+  .fund-animal-foto {
+    width: 50%;
+    border-radius: 16px;
+  }
+  .fund-donaciones {
+    max-height: 435px;
+    overflow: auto;
+  }
+  .fund-historial-history {
+    background-color: var(--third-color);
+    width: 100%;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    margin-bottom: 16px;
+    i {
+      z-index: 12;
+    }
+  }
+  .fund-linea-vertical {
+    width: 2px;
+    background-color: var(--primary-color);
+    height: 117px;
+    z-index: 10;
+    position: fixed;
+    left: 35px;
+    margin-top: 16px;
+    box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.25);
+  }
+}
+
+@media (min-width: 400px) {
+  .fund-don-animals-historial {
+    .fund-animal-foto {
+      width: 500px;
+    }
+    .fund-historial-history i {
+      z-index: 0 !important;
+    }
+    .fund-linea-vertical {
+      z-index: 0 !important;
+    }
+  }
+}

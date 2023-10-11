@@ -1,0 +1,24 @@
+.card-cuentas {
+  width: 400px !important;
+  .fund-table {
+    display: grid;
+    grid-row-gap: 3px;
+    width: 100% !important;
+    min-width: 100% !important;
+    .fund-empty {
+      position: relative;
+      z-index: 10;
+      img {
+        width: 100px;
+      }
+    }
+    .fund-table-row {
+      display: grid;
+      width: 100% !important;
+      min-width: 100% !important;
+      background-color: var(--third-color);
+      grid-template-columns: 10% 50% 40% !important;
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      // Añadir estos paths
+      "@/*": ["node_modules/paganini/src/*"],
+      "@components/*": ["node_modules/paganini/src/shared/*"],
+      "@helpers/*": ["node_modules/paganini/src/helpers/*"],
+      "@hooks/*": ["node_modules/paganini/src/hooks/*"],
+      "@services/*": ["node_modules/paganini/src/services/*"],
+      "@modules/*": ["node_modules/paganini/src/modules/*"],
+      "@pages/*": ["node_modules/paganini/src/pages/*"]
+    }
+  }
+}

@@ -1,0 +1,250 @@
+.scrollable-div {    
+    height: 80%;
+    overflow: auto;
+    margin: 20px;
+    text-align: justify;
+    padding: 20px;
+  }
+
+  .notificacion-dialog {//.fund-don-dialog {    
+    width: 60%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.3);
+    top: 7%;
+    left: 82%;        
+    right: 0%;
+    z-index: 1000;
+    display: flex;
+    justify-content: flex-start;
+    align-items:flex-start;
+    .notificacion-content {      
+      width: 30%;
+      height: 100%;
+      padding: 16px;
+      .notificacion-close {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        i {
+          color: var(--primary-color) !important;
+        }
+      }
+      .fund-txt-6{
+        color: var(--primary-color) !important;
+      }
+  
+      .fund-animal-foto {
+        width: 60%;
+        img {
+          border-radius: 16px;
+          min-height: 130px;
+        }
+        .fund-tag {
+          background-color: var(--primary-color);
+          color: white;
+          border-radius: 16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: -15px;
+        }        
+      }
+      .fund-form-buttons{
+        align-items: center;
+        justify-content: center;
+        
+      }
+    }
+  }
+
+  // notificacion ccs cards
+  .noti-don-animals-content {
+    margin: 0px;
+    margin-bottom: 10px;
+    padding-top: 0px;
+    //background-color: aqua;
+    .infinite-scroll-component {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: left;
+      //background-color: red;
+    }
+    .noti-animal {
+      height: 200px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items:center;
+      margin-bottom: 16px;
+      margin-left: 0px;
+      border-radius: 16px;
+      position:relative;
+      //background-color: red;
+    
+      .noti-animal-foto {
+        border-radius: 16px;
+        width: 50px;
+        height: 35px;
+        min-height: 80px;
+        margin-left: 16px;
+        
+      }
+      .noti-especie-icons{ 
+        margin-bottom: 5px;      
+        height: 16px;
+        width: 16px; 
+      }
+      .noti-data-animal {
+        display: flex;
+        flex-direction: row;
+        align-items:left;
+        margin-bottom: 0px; 
+        
+      }
+      //texto creadas para las card de animales
+      .noti-txt-dato {
+        font-size: 12px !important;
+        font-weight: normal;
+        padding-bottom: 5px;
+        margin-left: 5px;
+        color: black;
+      }
+      .noti-txt-datofun {
+        font-size: 12px !important;
+        font-weight: normal;
+        padding-bottom: 5px;
+        margin-left: 5px;
+        color: black;
+      }
+      .noti-txt-8 {
+        font-size: 11px !important;
+        color:black;
+        font-weight: bold;
+        margin-left: 5px;        
+      }
+      .noti-txt-10-green {
+        font-size: 14px !important;
+        color:#028596;
+        font-weight: bold;
+        margin-left: 5px;        
+      }
+
+      .noti-txt-12-green {
+        font-size: 16px !important;
+        color:#028596;
+        font-weight: bold;
+        margin-left: 5px;        
+      }
+      .noti-animal-descripcion {
+        margin: 20px 90px 20px 5px;
+        display: flex;
+        flex-direction: column;
+        align-items:flex-start;
+        width: 100px;
+        white-space: nowrap;
+        //text-overflow: ellipsis;
+        //overflow: hidden;
+        max-width: 100px; 
+       
+      }
+      .noti-animal-icons {
+        display: flex;
+        i {
+          color: var(--primary-color) !important;
+        }
+      }
+      .noti-animal-row{
+        display:flex;
+        flex-direction: row;
+      }
+      .noti-animal-column{
+        display: flex;
+        flex-direction: column;
+      }
+      .noti-leopet{
+        //display: flex;
+        position: absolute;
+        top: 78px;
+        bottom: 0px;
+        left: 125px;
+        right: 0px;
+        //background-color: red;
+      }
+      .noti-img-huella{
+        border-radius: 100px;
+        width: 30px;
+        height: 30px;
+      }
+  
+    }
+    .noti-info-manada {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+  
+    .noti-btn{
+      width: 300px;
+    }
+    .noti-btn{
+      background-color: #028596;
+      width: 300px;
+    }
+  
+  }
+  
+  @media (min-width: 400px) {
+    .noti-don-animals-content {
+      .noti-animal {
+        height: 70px;
+        .noti-animal-foto {
+          border-radius: 16px;          
+          width:80px;
+          height: 60px;
+          min-height: 60px;
+          margin-left: 4px;
+          margin-top: 16px;
+        }
+        .noti-animal-descripcion {
+          width: calc(100% - 16px);
+          max-width: calc(100% - 16px);
+        }
+      }
+    }
+  }
+
+  .noti-card {
+    color: #757575;
+    box-sizing: border-box;
+    //box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    background-color: #efead8;
+    img {
+      object-fit: cover;
+      object-position: center center;
+    }
+  }
+  .fund-don-dialog-content.fund-card {
+    width: 400px;
+  }
+
+
+  .noti-card-white {
+    color: white;
+    box-sizing: border-box;
+    //box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    background-color: white;
+    img {
+      object-fit: cover;
+      object-position: center center;
+    }
+  }
+  .fund-don-dialog-content.fund-card {
+    width: 400px;
+  }
+
+  
+.noti-mb-16 {
+  margin-bottom: 5px;
+}
+  

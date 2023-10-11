@@ -1,0 +1,23 @@
+.fund-don-dialog {
+
+    .fund-form-field {
+        .seccion-detalle-row {
+            display: flex;
+            flex-direction: row;
+        }
+
+    }
+
+    .fund-form-buttons-row {
+        margin-top: 20px;
+        align-items: center;
+        margin-left: 80px;
+       
+        .fund-btn {
+            width: 100px;
+            margin: 15px;
+            background-color: var(--primary-color) !important;
+        }
+       
+    }
+}

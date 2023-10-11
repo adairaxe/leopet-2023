@@ -1,0 +1,46 @@
+.fund-don-dialog-content.fund-card.fund-create-animal {
+    width: 450px;
+  }
+  .fund-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    justify-content: space-between;
+    .fund-gallery-photo {
+      width: 30%;
+      border-radius: 10px;
+      margin-right: 8px;
+      margin-bottom: 8px;
+      min-height: 70px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      i {
+        margin: 4px;
+      }
+    }
+    .fund-upload-photos {
+      width: 30%;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-right: 8px;
+      border: 1px solid var(--fourth-color);
+      min-height: 72px;
+    }
+    .fund-gallery-photo.uploading {
+      opacity: 0.3;
+      i {
+        opacity: 1;
+      }
+    }
+  }
+  .negrita{
+    font-weight: bold;
+  }
+  

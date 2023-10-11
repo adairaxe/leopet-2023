@@ -1,0 +1,30 @@
+.fund-don-barra-titulo {
+  background-color: var(--third-color);
+  height: 64px;
+  width: 100%;
+  padding: 16px;
+  margin: 0px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  //box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.25);
+  position: sticky;
+  top: 10px;
+  img {
+    width: 80px;
+  }
+  .fund-form-field {
+    margin: 0px;
+    width: 60%;
+    display: flex;
+    flex-direction: unset;
+    justify-content: flex-end;
+    i {
+      position: absolute;
+      right: 21px;
+      top: 20px;
+    }
+  }
+  
+
+}

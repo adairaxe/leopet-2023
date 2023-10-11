@@ -1,0 +1,51 @@
+.fund-fund-animals {
+    padding: 32px;
+    padding-top: 132px;
+    min-width: calc(100% - 500px);
+    .fund-don-dialog-content {
+      width: 331px;
+    }
+    .fund-empty img {
+      width: 300px;
+    }
+    .fund-title {
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .fund-table-content {
+      width: 100%;
+      overflow-x: auto;
+      margin-top: 32px;
+      .fund-table {
+        display: grid;
+        grid-row-gap: 1px;
+        min-width: 1200px;
+        .fund-table-row {
+          display: grid;
+          background-color: var(--third-color);
+          grid-template-columns: 5% 20% 20% 15% 30% 10%;
+          cursor: pointer;
+  
+          &:hover {
+            filter: brightness(102%);
+          }
+          &:first-child {
+            font-weight: bold;
+            cursor: auto;
+          }
+          .fund-table-cell {
+            margin: 8px;
+            margin-left: 0px;
+            padding-left: 8px;
+            max-height: 15px;
+            border-left: 1px solid var(--fourth-color);
+            &:first-child {
+              border: none;
+            }
+          }
+        }
+      }
+    }
+  }
+  
