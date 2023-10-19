@@ -1,18 +1,23 @@
-/* eslint-disable import/no-dynamic-require */
+require("dotenv").config();
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
-
 const basename = path.basename(__filename);
 const db = {};
-const databaseName = process.env.MYSQL_DATABASE;
-const configKey = databaseName;
-const config = require('../config')[configKey][process.env.NODE_ENV];
-const isDataBaseEnabled = require('../config').integradoradb.IsEnabled;
 
-const sequelize = new Sequelize(config);
 
-if (isDataBaseEnabled) {
+const sequelize = new Sequelize(
+  process.env.MYSQL_DATABASE,
+  process.env.MYSQL_USER, 
+  process.env.MYSQL_ROOT_PASSWORD,
+  {
+    host: 'localhost',
+    dialect: 'mysql'
+  }
+);
+
+
+if (process.env.MYSQL_ISENABLE) {
   fs.readdirSync(__dirname)
     .filter((file) =>
       (
@@ -39,19 +44,24 @@ if (isDataBaseEnabled) {
       db[modelName].loadScopes(db);
     }
   });
-
-  db.sequelize = sequelize;
-
-  db.connect = async () => {
-    try {
-      await sequelize.sync();
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error('Unable to connect to the database:', err);
-    }
-  };
-
-  db.disconnect = () =>
-    sequelize.close();
 }
+
+
+db.sequelize = sequelize;
+
+
+db.connect = async () => {
+  try {
+    await sequelize.sync();
+  } catch (err) {
+    console.error('Unable to connect to the database:', err);
+  }
+};
+
+
+db.disconnect = () =>
+  sequelize.close();
+
+
+
 module.exports = db;
