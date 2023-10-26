@@ -13,6 +13,12 @@ const {
 } = require('./helpers');
 
 const db = require('../DB/index');
+const Usuario = require("../DB/usuario");
+const Fundacion = require("../DB/fundacion");
+const Animal = require("../DB/animal");
+const ManadaAnimal = require("../DB/manada_animal");
+const Manada = require("../DB/manada");
+const Notificacion = require("../DB/notificacion");
 
 /**
  * Funcion para crear un animal en la BD
@@ -39,7 +45,7 @@ exports.createAnimal = async (req, res) => {
         .status(401)
         .send({ error: 'No esta autorizado para realizar esta operacion!' });
     }
-    const animal = await db.Animal.create({
+    const animal = await Animal.create({
       nombre,
       status: STATUS_ANIMAL.NO_APADRINADO,
       especie,
@@ -114,7 +120,7 @@ exports.updateAnimal = async (req, res) => {
         desparasitacion,
         updatedAt: Date.now(),
       };      
-      const animal = await db.Animal.update(update, {
+      const animal = await Animal.update(update, {
         where: { id: animalId, fundacion_id: User.fundacionId },
       });      
       response.mensaje = 'Informacion del animal actualizada.';
@@ -161,7 +167,7 @@ exports.getAllAnimals = async (req, res) => {
         offset: (page - 1) * limit,
         limit,
       };
-      responseBody = await db.Animal.findAndCountAll(query);
+      responseBody = await Animal.findAndCountAll(query);
       const { rows, count } = responseBody;
       total = count;
       for (const animals of rows) {
@@ -176,7 +182,7 @@ exports.getAllAnimals = async (req, res) => {
           id: manada,
         },
       };
-      const responseManada = await db.Manada.findOne(query);
+      const responseManada = await Manada.findOne(query);
       if (
         !_.isEmpty(responseManada)
         && _.isEqual(responseManada.userId, User.id)
@@ -186,7 +192,7 @@ exports.getAllAnimals = async (req, res) => {
             manada_id: manada,
           },
         };
-        responseBody = await db.ManadaAnimal.findAndCountAll(query);
+        responseBody = await ManadaAnimal.findAndCountAll(query);
         const { rows, count } = responseBody;
         total = count;
         for (const animal of rows) {
@@ -195,7 +201,7 @@ exports.getAllAnimals = async (req, res) => {
               id: animal.animal_id,
             },
           };
-          const animals = await db.Animal.findOne(query);
+          const animals = await Animal.findOne(query);
           const fundacionId = _.get(animals, 'fundacion_id');
 
           const fundacion = await getFundacionInfo(fundacionId);
@@ -263,7 +269,7 @@ exports.getAllAnimalsApp = async (req, res) => {
       }
     }
 
-    responseBody = await db.Animal.findAndCountAll(query);
+    responseBody = await Animal.findAndCountAll(query);
     const { rows, count } = responseBody;
     total = count;
     for (const animals of rows) {
@@ -315,7 +321,7 @@ exports.getAllAnimalsFundacionApp = async (req, res) => {
       };
     }
 
-    responseBody = await db.Animal.findAndCountAll(query);
+    responseBody = await Animal.findAndCountAll(query);
     const { rows, count } = responseBody;
     total = count;
     for (const animals of rows) {
@@ -353,7 +359,7 @@ exports.getAllAnimalsFundacionApp = async (req, res) => {
  */
 exports.getEspecies = async (req, res) => {
   try {
-    const responseBody = await db.Animal.findAll({
+    const responseBody = await Animal.findAll({
       where: { visible: true },
       attributes: ['especie'],
       group: ['especie'],
@@ -392,7 +398,7 @@ exports.getAnimal = async (req, res) => {
       result,
     };
 
-    const responseBody = await db.Animal.findOne({
+    const responseBody = await Animal.findOne({
       where: { id: animalId, visible: true },
     });
 
@@ -426,7 +432,7 @@ exports.searchAnimal = async (req, res) => {
     const response = {
       result,
     };
-    const responseBody = await db.Animal.findAll({
+    const responseBody = await Animal.findAll({
       where: { nombre: { [Op.regexp]: `${q}` }, visible: true },
     });
 
@@ -466,7 +472,7 @@ exports.deleteAnimal = async (req, res) => {
     }
 
     let mensaje = 'Animal eliminado exitosamente';
-    const animal = await db.Animal.findOne({
+    const animal = await Animal.findOne({
       where: { id: animalId, visible: true },
     });
     if (_.isEmpty(animal)) {
@@ -477,7 +483,7 @@ exports.deleteAnimal = async (req, res) => {
       visible: false,
       updatedAt: Date.now(),
     };
-    await db.Animal.update(update, {
+    await Animal.update(update, {
       where: { id: animalId, fundacion_id: User.fundacionId },
     });
     const response = {

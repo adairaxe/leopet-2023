@@ -6,7 +6,8 @@ const jwt = require('jsonwebtoken');
 const { ROL } = require('../constants');
 const { validateRequest } = require('../helpers');
 
-const db = require('../DB/index');
+const Usuario = require('../DB/usuario');
+const AdminFund = require("../DB/administrador_fund");
 
 /**
  * Funcion encargada del inicio de sesion de todos los usuarios: SuperAdmin, Administrador Plataforma,
@@ -21,7 +22,7 @@ exports.login = async (req, res) => {
     const { email, password } = req.body;
     const unAuthorizedResponse = 'Credenciales incorrectas.';
 
-    const User = await db.Usuario.findOne({
+    const User = await Usuario.findOne({
       where: {
         email,
       },
@@ -34,16 +35,16 @@ exports.login = async (req, res) => {
     }
 
     // Get user password
-    const Password = await db.Usuario.findOne({
+    const Password = await Usuario.findOne({
       where: {
         id: User.id,
       },
     });
 
     // Verify password
-    // if (!bcrypt.compareSync(password, Password.password)) {
-    //   return res.status(401).send(unAuthorizedResponse);
-    // }
+    /* if (!bcrypt.compareSync(password, Password.password)) {
+      return res.status(401).send(unAuthorizedResponse);
+    } */
 
     // Make JWT
     const expiresIn = 28800;
@@ -54,7 +55,7 @@ exports.login = async (req, res) => {
 
     let adminFund;
     if (_.isEqual(User.role, ROL.ADMIN_FUND.ROL_ID)) {
-      adminFund = await db.AdminFund.findOne({
+      adminFund = await AdminFund.findOne({
         where: { id: User.id },
       });
     }
@@ -114,7 +115,7 @@ exports.register = async (req, res) => {
 
     const unAuthorizedResponse = 'Ya existe un usuario registrado con ese correo.';
 
-    let User = await db.Usuario.findOne({
+    let User = await Usuario.findOne({
       where: {
         email,
       },
@@ -130,7 +131,7 @@ exports.register = async (req, res) => {
     const hash = bcrypt.hashSync(password, salt);
 
     // Registrar donador o admin_funda
-    User = await db.Usuario.create({
+    User = await Usuario.create({
       cedula,
       nombres,
       apellidos,
@@ -142,7 +143,7 @@ exports.register = async (req, res) => {
     });
 
     if (_.isEqual(role, ROL.ADMIN_FUND.ROL_ID)) {
-      await db.AdminFund.create({
+      await AdminFund.create({
         id: User.id,
         fundacion_id: fundacionId,
       });

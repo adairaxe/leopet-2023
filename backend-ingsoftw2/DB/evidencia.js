@@ -1,5 +1,7 @@
-module.exports = (sequelize, DataTypes) => {
-  const Evidencia = sequelize.define(
+const db = require("../DB/index");
+const { DataTypes } = require("sequelize");
+  
+const Evidencia = db.sequelize.define(
     'Evidencia',
     {
       donacion_id: {
@@ -23,5 +25,5 @@ module.exports = (sequelize, DataTypes) => {
     },
   );
 
-  return Evidencia;
-};
+module.exports = Evidencia;
+

@@ -95,9 +95,9 @@ exports.updatePassword = async (req, res) => {
       },
     });
 
-    // if (!bcrypt.compareSync(password, oldPassword.password)) {
-    //   return res.status(400).send({ error: 'Credenciales incorrectas' });
-    // }
+    if (!bcrypt.compareSync(password, oldPassword.password)) {
+      return res.status(400).send({ error: 'Credenciales incorrectas' });
+    }
 
     const saltRounds = 10;
     const salt = bcrypt.genSaltSync(saltRounds);

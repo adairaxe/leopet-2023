@@ -1,5 +1,9 @@
-module.exports = (sequelize, DataTypes) => {
-  const donacion = sequelize.define(
+const db = require("../DB/index");
+const { DataTypes } = require("sequelize");
+const Usuario = require("../DB/usuario");
+const Animal = require("../DB/animal");
+
+const Donacion = db.sequelize.define(
     'Donacion',
     {
       donador_id: {
@@ -29,14 +33,13 @@ module.exports = (sequelize, DataTypes) => {
     },
   );
 
-  donacion.associate = (models) => {
-    donacion.belongsTo(models.Usuario, {
+  Donacion.associate = () => {
+    Donacion.belongsTo(Usuario, {
       foreignKey: 'donador_id',
     });
-    donacion.belongsTo(models.Animal, {
+    Donacion.belongsTo(Animal, {
       foreignKey: 'animal_id',
     });
-  };
-
-  return donacion;
 };
+
+module.exports = Donacion;

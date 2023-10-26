@@ -15,6 +15,12 @@ const {
 //} = require('./helpers');
 
 const db = require('../DB/index');
+const Usuario = require("../DB/usuario");
+const Fundacion = require("../DB/fundacion");
+const Animal = require("../DB/animal");
+const ManadaAnimal = require("../DB/manada_animal");
+const Manada = require("../DB/manada");
+const Notificacion = require("../DB/notificacion");
 
 /**
  * Funcion para crear una fundacion por parte del administrador de la plataforma en la BD
@@ -40,7 +46,7 @@ exports.createFundacion = async (req, res) => {
         error: 'Ya se encuentra registrada una fundacion con ese RUC',
       });
     }
-    const fundacion = await db.Fundacion.create({
+    const fundacion = await Fundacion.create({
       ruc,
       nombre,
       direccion,
@@ -81,7 +87,7 @@ exports.registerFundacion = async (req, res) => {
         error: 'La Fundación ya ha registrado una solicitud',
       });
     }
-    const fundacion = await db.Fundacion.create({
+    const fundacion = await Fundacion.create({
       ruc,
       nombre,
       direccion,
@@ -124,7 +130,7 @@ exports.updateInfoFundacion = async (req, res) => {
       ...(!_.isEmpty(comision) ? { comision } : {}),
       updatedAt: Date.now(),
     };
-    const fundacion = await db.Fundacion.update(update, {
+    const fundacion = await Fundacion.update(update, {
       where: { id },
     });
 
@@ -164,10 +170,10 @@ exports.getFundaciones = async (req, res) => {
       raw: true,
     };
 
-    const fundaciones = await db.Fundacion.findAndCountAll(query);
+    const fundaciones = await Fundacion.findAndCountAll(query);
     const { count, rows } = fundaciones;
     for (const fundacion of rows) {
-      const adminFun = await db.AdminFund.findOne({
+      const adminFun = await AdminFund.findOne({
         where: { fundacion_id: fundacion.id },
       });
       const cuentaBancaria = await getCuentaBancaria(fundacion.id);
@@ -175,7 +181,7 @@ exports.getFundaciones = async (req, res) => {
       if (_.isEmpty(adminFun)) {
         fundacion.user = {};
       } else {
-        const admin = await db.Usuario.findOne({ where: { id: adminFun.id } });
+        const admin = await Usuario.findOne({ where: { id: adminFun.id } });
         fundacion.user = !_.isEmpty(admin) ? admin : {};
       }
     }
@@ -227,7 +233,7 @@ exports.getAnimalFundaciones = async (req, res) => {
       offset: (page - 1) * limit,
       limit,
     };
-    const animales = await db.Animal.findAndCountAll(query);
+    const animales = await Animal.findAndCountAll(query);
     const { count } = animales;
     const totalPages = Math.ceil(count / limit);
     const response = {
@@ -265,24 +271,24 @@ exports.getAnimalPadrinosFundacion = async (req, res) => {
       /*offset: (page - 1) * limit,
       limit,*/
     };
-    const animales = await db.Animal.findAndCountAll(query);
+    const animales = await Animal.findAndCountAll(query);
     const { count } = animales;    
     for (const animal of  animales.rows) {
       const animalId = _.get(animal, "id");
-      const manadasAnimal = await db.ManadaAnimal.findAndCountAll({
+      const manadasAnimal = await ManadaAnimal.findAndCountAll({
         where: {
           animal_id: animalId,
         },
       });      
       for (const manadaAnimal of manadasAnimal.rows){
         const manadaId = _.get(manadaAnimal, "manada_id");
-        const manada = await db.Manada.findOne({
+        const manada = await Manada.findOne({
           where: {
             id: manadaId,
           },
         });
         const donadorId = _.get(manada, "userId");
-        const donador = await db.Usuario.findOne({
+        const donador = await Usuario.findOne({
           where: {
             id: donadorId,
           },
@@ -327,30 +333,30 @@ exports.getAnimalPadrinosCalificacion = async (req, res) => {
       /*offset: (page - 1) * limit,
       limit,*/
     };
-    const animales = await db.Animal.findAndCountAll(query);
+    const animales = await Animal.findAndCountAll(query);
     const { count } = animales;    
     for (const animal of  animales.rows) {
       const animalId = _.get(animal, "id");
-      const manadasAnimal = await db.ManadaAnimal.findAndCountAll({
+      const manadasAnimal = await ManadaAnimal.findAndCountAll({
         where: {
           animal_id: animalId,
         },
       });      
       for (const manadaAnimal of manadasAnimal.rows){
         const manadaId = _.get(manadaAnimal, "manada_id");
-        const manada = await db.Manada.findOne({
+        const manada = await Manada.findOne({
           where: {
             id: manadaId,
           },
         });
         const donadorId = _.get(manada, "userId");
-        const donador = await db.Usuario.findOne({
+        const donador = await Usuario.findOne({
           where: {
             id: donadorId,
           },
         });
 
-        const notificacion = await db.Notificacion.findOne({ 
+        const notificacion = await Notificacion.findOne({ 
           limit: 1 ,
           where: {
             usuario_id: donadorId,
@@ -398,7 +404,7 @@ exports.deleteFundacion = async (req, res) => {
       aprobado: false,
       updatedAt: Date.now(),
     };
-    const fundacion = await db.Fundacion.update(update, {
+    const fundacion = await Fundacion.update(update, {
       where: { id: fundacionId, aprobado: true },
     });
 

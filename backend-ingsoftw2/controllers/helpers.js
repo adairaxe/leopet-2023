@@ -2,6 +2,16 @@
 
 const _ = require('lodash');
 const db = require('../DB/index');
+const Usuario = require("../DB/usuario");
+const Fundacion = require("../DB/fundacion");
+const Animal = require("../DB/animal");
+const ManadaAnimal = require("../DB/manada_animal");
+const Manada = require("../DB/manada");
+const Notificacion = require("../DB/notificacion");
+const CuentaBancaria = require("../DB/cuenta_bancaria");
+const Donacion = require("../DB/donacion");
+const Evidencia = require("../DB/evidencia");
+
 const { STATUS_ANIMAL, ROL } = require('../constants');
 
 /**
@@ -179,7 +189,7 @@ exports.parseDataAnimalComision = (animal,manada,donador,notificacion = {}) =>{
  */
 exports.validateSuperAdmin = async (userId) => {
   try {
-    const Usuario = await db.Usuario.findOne({
+    const Usuario = await Usuario.findOne({
       where: {
         id: userId,
       },
@@ -200,7 +210,7 @@ exports.validateSuperAdmin = async (userId) => {
  */
 exports.validateAdminFund = async (userId) => {
   try {
-    const Usuario = await db.Usuario.findOne({
+    const Usuario = await Usuario.findOne({
       where: {
         id: userId,
       },
@@ -222,7 +232,7 @@ exports.validateAdminFund = async (userId) => {
  */
 exports.validateDonador = async (userId) => {
   try {
-    const Usuario = await db.Usuario.findOne({
+    const Usuario = await Usuario.findOne({
       where: {
         id: userId,
       },
@@ -245,7 +255,7 @@ exports.validateDonador = async (userId) => {
  */
 exports.validateUpdateAnimal = async (fundacionId, animalId) => {
   try {
-    const Animal = await db.Animal.findOne({
+    const Animal = await Animal.findOne({
       where: {
         id: animalId,
         fundacion_id: fundacionId,
@@ -269,7 +279,7 @@ exports.validateUpdateAnimal = async (fundacionId, animalId) => {
  */
 exports.validateAnimalManada = async (manadaId, animalId) => {
   try {
-    const Animal = await db.ManadaAnimal.findOne({
+    const Animal = await ManadaAnimal.findOne({
       where: {
         manada_id: manadaId,
         animal_id: animalId,
@@ -291,7 +301,7 @@ exports.validateAnimalManada = async (manadaId, animalId) => {
  * @return {Object} response
  */
 exports.getFundacionInfo = async (fundacionId) => {
-  const fundacion = await db.Fundacion.findOne({
+  const fundacion = await Fundacion.findOne({
     where: {
       id: fundacionId,
     },
@@ -305,7 +315,7 @@ exports.getFundacionInfo = async (fundacionId) => {
  * @return {Object} response
  */
 exports.getCuentaBancaria = async (fundacionId) => {
-  const cuentaBancaria = await db.CuentaBancaria.findOne({
+  const cuentaBancaria = await CuentaBancaria.findOne({
     where: {
       fundacion_id: fundacionId,
     },
@@ -324,7 +334,7 @@ exports.getCuentaBancaria = async (fundacionId) => {
  */
 exports.getHistorialAnimal = async (donadorId, animalId) => {
   try {
-    const historial = await db.Donacion.findAll({
+    const historial = await Donacion.findAll({
       where: {
         donador_id: donadorId,
         animal_id: animalId,
@@ -338,7 +348,7 @@ exports.getHistorialAnimal = async (donadorId, animalId) => {
       return evidencias;
     }
     for (const evidencia of historial) {
-      const evidenciaAnimal = await db.Evidencia.findOne({
+      const evidenciaAnimal = await Evidencia.findOne({
         where: {
           donacion_id: evidencia.id,
         },
@@ -365,7 +375,7 @@ exports.getHistorialAnimal = async (donadorId, animalId) => {
  */
 exports.validateManada = async (manadaId, userId) => {
   try {
-    const data = await db.Manada.findOne({
+    const data = await Manada.findOne({
       where: {
         id: manadaId,
         userId,
@@ -388,7 +398,7 @@ exports.validateManada = async (manadaId, userId) => {
  */
 exports.validateFundacion = async (ruc) => {
   try {
-    const data = await db.Fundacion.findOne({
+    const data = await Fundacion.findOne({
       where: {
         ruc,
       },
@@ -409,12 +419,12 @@ exports.validateFundacion = async (ruc) => {
  */
 exports.changeStatus = async (animalId) => {
   try {
-    const animal = await db.Animal.findOne({ where: { id: animalId } });
+    const animal = await Animal.findOne({ where: { id: animalId } });
     if (_.isEqual(animal.status, STATUS_ANIMAL.NO_APADRINADO)) {
       const update = {
         status: STATUS_ANIMAL.APADRINADO,
       };
-      await db.Animal.update(update, {
+      await Animal.update(update, {
         where: { id: animalId },
       });
     }
@@ -430,7 +440,7 @@ exports.changeStatus = async (animalId) => {
  */
 exports.getEvidencia = async (donacionId) => {
   try {
-    let evidencia = await db.Evidencia.findOne({
+    let evidencia = await Evidencia.findOne({
       where: { donacion_id: donacionId },
     });
     if (_.isEmpty(evidencia)) {
