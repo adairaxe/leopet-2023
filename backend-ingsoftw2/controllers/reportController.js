@@ -3,7 +3,9 @@ const dayjs = require('dayjs');
 const { Op } = require('sequelize');
 const sequelize = require('sequelize');
 
-const db = require('../DB/index');
+const Fundacion = require("../DB/fundacion");
+const Animal = require("../DB/animal");
+const Donacion = require("../DB/donacion");
 
 /**
  * Funcion para obtener reporte de las donaciones filtradas por fecha de creacion
@@ -32,7 +34,7 @@ exports.getReporSuperAdmin = async (req, res) => {
       },
       include: [
         {
-          model: db.Animal,
+          model: Animal,
           required: true,
         },
       ],
@@ -43,7 +45,7 @@ exports.getReporSuperAdmin = async (req, res) => {
       group: ['animal_id'],
       raw: true,
     };
-    const responseBody = await db.Donacion.findAndCountAll(query);
+    const responseBody = await Donacion.findAndCountAll(query);
     const { rows } = responseBody;
     const fundaciones = [];
     const total = [];
@@ -64,7 +66,7 @@ exports.getReporSuperAdmin = async (req, res) => {
     const donaciones = [];
     for (const id of fundaciones) {
       // eslint-disable-next-line no-await-in-loop
-      const fundacion = await db.Fundacion.findOne({
+      const fundacion = await Fundacion.findOne({
         where: { id },
       });
       const data = {

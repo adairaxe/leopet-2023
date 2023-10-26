@@ -7,7 +7,9 @@ const {
   parseDataNotificacion,
 } = require('./helpers');
 
-const db = require('../DB/index');
+const Animal = require("../DB/animal");
+const Notificacion = require("../DB/notificacion");
+const ActualizacionAnimal = require("../DB/actualizacion_animal");
 
 exports.getNotificaciones = async (req, res) => {
   await validateRequest(req);  
@@ -20,19 +22,19 @@ exports.getNotificaciones = async (req, res) => {
         visible: true,        
       },       
     };
-    const notificaciones = await db.Notificacion.findAndCountAll(query);
+    const notificaciones = await Notificacion.findAndCountAll(query);
     const { count } = notificaciones;
     for (const notificacion of notificaciones.rows) {
       const actualizacionId = _.get(notificacion, 'actualizacion_id');      
       const fundacionId =_.get(notificacion, 'fundacion_id'); 
       const animalId = _.get(notificacion, 'animal_id');       
-      const actualizacion = await db.ActualizacionAnimal.findOne({
+      const actualizacion = await ActualizacionAnimal.findOne({
         where: {
           id: actualizacionId,
         },
       }); 
       const fundacion = await getFundacionInfo(fundacionId);     
-      const animal = await db.Animal.findOne({
+      const animal = await Animal.findOne({
         where: {
           id: animalId,
         },
@@ -77,7 +79,7 @@ exports.updateNotificacion = async (req, res) => {
         ...(!_.isNull(fecha_calificacion) ? { fecha_calificacion } : {}),
         updatedAt: Date.now(),
       };
-      const notificacion = await db.Notificacion.update(update, {
+      const notificacion = await Notificacion.update(update, {
         where: { id: notificacionId, },
       });      
       response.mensaje = 'Informacion actualizada.';

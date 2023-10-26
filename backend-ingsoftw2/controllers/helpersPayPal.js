@@ -4,7 +4,7 @@ const dayjs = require('dayjs');
 const axios = require('axios');
 const utc = require('dayjs/plugin/utc');
 
-const db = require('../DB/index');
+const Manada = require("../DB/manada");
 
 const config = {
   headers: {
@@ -41,7 +41,7 @@ exports.createProductManada = async (data) => {
       responseProduct,
       updatedAt: Date.now(),
     };
-    await db.Manada.update(update, {
+    await Manada.update(update, {
       where: { id: _.get(data, 'id') },
     });
   } catch (error) {
@@ -84,7 +84,7 @@ const createSubscription = async (data) => {
       responseSubscription,
       updatedAt: Date.now(),
     };
-    await db.Manada.update(update, {
+    await Manada.update(update, {
       where: { id: _.get(data, 'id') },
     });
     const link = _.first(_.get(responseSubscription, 'links'));
@@ -145,7 +145,7 @@ exports.createPlanManada = async (data) => {
       updatedAt: Date.now(),
     };
 
-    await db.Manada.update(update, {
+    await Manada.update(update, {
       where: { id: _.get(data, 'id') },
     });
     const link = await createSubscription(newData);

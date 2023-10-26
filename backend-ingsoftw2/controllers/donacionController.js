@@ -8,7 +8,10 @@ const { getEvidencia } = require('./helpers');
 const { validateRequest } = require('../helpers');
 const { createPlanManada } = require('./helpersPayPal');
 
-const db = require('../DB/index');
+const Animal = require("../DB/animal");
+const Manada = require("../DB/manada");
+const Donacion = require("../DB/donacion");
+const Usuario = require("../DB/usuario");
 
 /**
  * Funcion para obtener todas las donaciones
@@ -26,7 +29,7 @@ exports.getDonaciones = async (req, res) => {
     const query = {
       include: [
         {
-          model: db.Animal,
+          model: Animal,
           required: true,
           where: {
             fundacion_id: User.fundacionId,
@@ -34,14 +37,14 @@ exports.getDonaciones = async (req, res) => {
           },
         },
         {
-          model: db.Usuario,
+          model: Usuario,
           required: true,
         },
       ],
       offset: (page - 1) * limit,
       limit,
     };
-    const responseBody = await db.Donacion.findAndCountAll(query);
+    const responseBody = await Donacion.findAndCountAll(query);
     const { rows, count } = responseBody;
     const totalPages = Math.ceil(count / limit);
     const result = [];
@@ -97,7 +100,7 @@ exports.getDineroDisponible = async (req, res) => {
       },
       include: [
         {
-          model: db.Animal,
+          model: Animal,
           required: true,
           where: {
             fundacion_id: User.fundacionId,
@@ -105,7 +108,7 @@ exports.getDineroDisponible = async (req, res) => {
         },
       ],
     };
-    const responseBody = await db.Donacion.findAndCountAll(query);
+    const responseBody = await Donacion.findAndCountAll(query);
     const { rows } = responseBody;
     let monto = 0;
     for (const row of rows) {
@@ -137,13 +140,13 @@ exports.crearDonacion = async (req, res) => {
   await validateRequest(req);
   try {
     const { manadaId } = req.body;
-    const manada = await db.Manada.findOne({
+    const manada = await Manada.findOne({
       where: {
         id: manadaId,
       },
       include: [
         {
-          model: db.Usuario,
+          model: Usuario,
           required: true,
         },
       ],
@@ -191,7 +194,7 @@ exports.aprobarDonacion = async (req, res) => {
       aprobado,
       updatedAt: Date.now(),
     };
-    const donacionInfo = await db.Donacion.update(update, {
+    const donacionInfo = await Donacion.update(update, {
       where: { id },
     });
 
@@ -224,7 +227,7 @@ exports.pagarDonacion = async (req, res) => {
       pagado: _.isEqual(_.toLower(status), 'success'),
       updatedAt: Date.now(),
     };
-    const donacionInfo = await db.Donacion.update(update, {
+    const donacionInfo = await Donacion.update(update, {
       where: { id },
     });
 

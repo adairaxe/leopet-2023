@@ -14,13 +14,13 @@ const {
 } = require("./helpers");
 //} = require('./helpers');
 
-const db = require('../DB/index');
 const Usuario = require("../DB/usuario");
 const Fundacion = require("../DB/fundacion");
 const Animal = require("../DB/animal");
 const ManadaAnimal = require("../DB/manada_animal");
 const Manada = require("../DB/manada");
 const Notificacion = require("../DB/notificacion");
+const AdminFund = require("../DB/administrador_fund");
 
 /**
  * Funcion para crear una fundacion por parte del administrador de la plataforma en la BD

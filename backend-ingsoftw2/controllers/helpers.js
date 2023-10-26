@@ -1,13 +1,10 @@
 /* eslint-disable no-await-in-loop, no-console */
 
 const _ = require('lodash');
-const db = require('../DB/index');
-const Usuario = require("../DB/usuario");
 const Fundacion = require("../DB/fundacion");
 const Animal = require("../DB/animal");
 const ManadaAnimal = require("../DB/manada_animal");
 const Manada = require("../DB/manada");
-const Notificacion = require("../DB/notificacion");
 const CuentaBancaria = require("../DB/cuenta_bancaria");
 const Donacion = require("../DB/donacion");
 const Evidencia = require("../DB/evidencia");

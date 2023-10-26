@@ -4,7 +4,8 @@ const _ = require('lodash');
 
 const { validateRequest } = require('../helpers');
 
-const db = require('../DB/index');
+const CuentaBancaria = require("../DB/cuenta_bancaria");
+
 
 /**
  * Funcion para obtener la informacion de la cuenta bancaria registrada por una fundacion
@@ -16,7 +17,7 @@ exports.getCuentaBancaria = async (req, res) => {
   await validateRequest(req);
   try {    
     const { id } = req.params;
-    const result = await db.CuentaBancaria.findOne({
+    const result = await CuentaBancaria.findOne({
       where: {
         fundacion_id: id,
       },
@@ -40,7 +41,7 @@ exports.getCuentaBancariaPrincipal = async (req, res) => {
   await validateRequest(req);
   try {    
     const { id } = req.params;
-    const result = await db.CuentaBancaria.findOne({
+    const result = await CuentaBancaria.findOne({
       where: {
         fundacion_id: id,
         principal:true,
@@ -65,7 +66,7 @@ exports.getAllCuentaBancaria = async (req, res) => {
     const limit = parseInt(req.query.limit || '1', 10);
     const page = parseInt(req.query.page || '1', 10);
     let result = [];
-    const cuentas = await db.CuentaBancaria.findAndCountAll({
+    const cuentas = await CuentaBancaria.findAndCountAll({
       where: {
         fundacion_id: id,
       },
@@ -104,7 +105,7 @@ exports.crearCuentaBancaria = async (req, res) => {
     const {
       banco, numero, tipo, nombre, fundacionId,
     } = req.body;
-    const cuenta = await db.CuentaBancaria.create({
+    const cuenta = await CuentaBancaria.create({
       banco,
       numero,
       tipo,
@@ -147,7 +148,7 @@ exports.updateCuentaBancaria = async (req, res) => {
       ...(!_.isEmpty(nombre) ? { nombre } : {}),
       updatedAt: Date.now(),
     };
-    const cuenta = await db.CuentaBancaria.update(update, {
+    const cuenta = await CuentaBancaria.update(update, {
       where: { fundacion_id: id },
     });    
 
@@ -180,7 +181,7 @@ exports.updateCuentaBancariaIDCuenta = async (req, res) => {
       ...(!_.isEmpty(nombre) ? { nombre } : {}),
       updatedAt: Date.now(),
     };
-    const cuenta = await db.CuentaBancaria.update(update, {
+    const cuenta = await CuentaBancaria.update(update, {
       where: { id: cuenta_id },
     });    
 
@@ -212,13 +213,13 @@ exports.updateCuentaPrincipal = async (req, res) => {
       updatedAt: Date.now(),
     };
     
-    let cuenta = await db.CuentaBancaria.update(update, {
+    let cuenta = await CuentaBancaria.update(update, {
       where: { fundacion_id: fundacion_id },
     });
 
     update.principal=true;
 
-    cuenta = await db.CuentaBancaria.update(update, {
+    cuenta = await CuentaBancaria.update(update, {
       where: { fundacion_id: fundacion_id , id:id},
     });
 
@@ -244,7 +245,7 @@ exports.deleteCuenta = async (req, res) => {
     const { cuentaId } = req.params;
     
     let mensaje = 'Cuenta eliminado exitosamente';
-    const cuenta = await db.CuentaBancaria.destroy({
+    const cuenta = await CuentaBancaria.destroy({
       where: { id: cuentaId },
     });
     if (_.isEmpty(cuenta)) {

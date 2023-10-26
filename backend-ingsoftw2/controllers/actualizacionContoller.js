@@ -8,7 +8,11 @@ const {
   getFundacionInfo,
 } = require('./helpers');
 
-const db = require('../DB/index');
+const Animal = require("../DB/animal");
+const ManadaAnimal = require("../DB/manada_animal");
+const Manada = require("../DB/manada");
+const Rating = require("../DB/rating");
+const ActualizacionAnimal = require("../DB/actualizacion_animal");
 
 exports.createActualizacion = async (req, res) => {
   await validateRequest(req);
@@ -22,7 +26,7 @@ exports.createActualizacion = async (req, res) => {
       galeria,
     } = req.body;
     const notificaciones = [];
-    const actualizacion = await db.ActualizacionAnimal.create({
+    const actualizacion = await ActualizacionAnimal.create({
       descripcion,
       estado_salud,
       animal_id,
@@ -33,14 +37,14 @@ exports.createActualizacion = async (req, res) => {
     });
     /* if (galeria.length>0){
       galeria.forEach( async element => {
-        await db.ActualizacionGaleria.create({
+        await ActualizacionGaleria.create({
           url:element,
           actualizacion_id:actualizacion.id,
           createdAt:Date.now(),
         });
       })
     } */
-    const manadasAnimal = await db.ManadaAnimal.findAndCountAll({
+    const manadasAnimal = await ManadaAnimal.findAndCountAll({
       where: {
         animal_id: animal_id,
       },
@@ -48,14 +52,14 @@ exports.createActualizacion = async (req, res) => {
     
     for (const manadaAnimal of manadasAnimal.rows){
       const manadaId = _.get(manadaAnimal, "manada_id");
-      const manada = await db.Manada.findOne({
+      const manada = await Manada.findOne({
         where: {
           id: manadaId,
         },
       });
       const donadorId = _.get(manada, "userId");
       
-      const notificacion = await db.Notificacion.create({
+      const notificacion = await Notificacion.create({
         actualizacion_id:actualizacion.id,
         usuario_id:donadorId,
         fundacion_id:fundacion_id,
@@ -104,7 +108,7 @@ exports.updateActualizacion = async (req, res) => {
         ...(!_.isEmpty(galeria) ? { galeria } : {}),
         updatedAt: Date.now(),
       };
-      const actualizacion = await db.ActualizacionAnimal.update(update, {
+      const actualizacion = await ActualizacionAnimal.update(update, {
         where: { id: actualizacionId, fundacion_id: User.fundacionId },
       });
       response.mensaje = 'Informacion del animal actualizada.';
@@ -135,7 +139,7 @@ exports.deleteActualizacion = async (req, res) => {
     }
 
     let mensaje = 'Actualizacion eliminado exitosamente';
-    const actualizacion = await db.ActualizacionAnimal.findOne({
+    const actualizacion = await ActualizacionAnimal.findOne({
       where: { id: actualizacionId, visible: true },
     });
     if (_.isEmpty(actualizacion)) {
@@ -146,7 +150,7 @@ exports.deleteActualizacion = async (req, res) => {
       visible: false,
       updatedAt: Date.now(),
     };
-    await db.ActualizacionAnimal.update(update, {
+    await ActualizacionAnimal.update(update, {
       where: { id: actualizacionId, fundacion_id: User.fundacionId },
     });
     const response = {
@@ -180,19 +184,19 @@ exports.getActualizaciones = async (req, res) => {
       offset: (page - 1) * limit,
       limit,
     };
-    const actualizaciones = await db.ActualizacionAnimal.findAndCountAll(query);
+    const actualizaciones = await ActualizacionAnimal.findAndCountAll(query);
     const { count } = actualizaciones;
     for (const actualizacion of actualizaciones.rows) {
       const animalId = _.get(actualizacion, 'animal_id');
       // eslint-disable-next-line no-await-in-loop
-      const animal = await db.Animal.findOne({
+      const animal = await Animal.findOne({
         where: {
           id: animalId,
         },
       });
       // eslint-disable-next-line no-await-in-loop
       const fundacion = await getFundacionInfo(fundacionId);
-     /*  const galeria = await db.ActualizacionGaleria.findAndCountAll({
+     /*  const galeria = await ActualizacionGaleria.findAndCountAll({
         where: {
           actualizacion_id: actualizacion.id,
         },
@@ -228,7 +232,7 @@ exports.createRating = async (req, res) => {
     const {
       valor, actualizacion_id
     } = req.body;
-    const actualizacion = await db.Rating.create({
+    const actualizacion = await Rating.create({
       valor,
       actualizacion_id
     });
@@ -253,7 +257,7 @@ exports.loadRating = async (req, res) => {
     const {
       id
     } = req.body;
-    const { count, rows } = await db.Rating.findAndCountAll({
+    const { count, rows } = await Rating.findAndCountAll({
       where: {
         actualizacion_id:id
       }

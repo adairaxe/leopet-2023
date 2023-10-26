@@ -11,7 +11,10 @@ const {
   validateAnimalManada,
 } = require('./helpers');
 
-const db = require('../DB/index');
+const Fundacion = require("../DB/fundacion");
+const Animal = require("../DB/animal");
+const ManadaAnimal = require("../DB/manada_animal");
+const Manada = require("../DB/manada");
 
 const NUMERO_MAXIMO_FOTOS = 4;
 
@@ -28,7 +31,7 @@ exports.createManada = async (req, res) => {
   try {
     const { nombre, monto ,galeriamanada} = req.body;
 
-    const manada = await db.Manada.create({
+    const manada = await Manada.create({
       nombre,
       monto,
       userId: User.id,
@@ -85,7 +88,7 @@ exports.addAnimals = async (req, res) => {
       query.animal_id = animal;
       let data = 'Este animal ya se encuentra agregado a la manada';
       if (await validateAnimalManada(manadaId, animal)) {
-        data = await db.ManadaAnimal.create(query);
+        data = await ManadaAnimal.create(query);
       }
       responses.push(data);
     }
@@ -128,7 +131,7 @@ exports.getManadas = async (req, res) => {
       offset: (page - 1) * limit,
       limit,
     };
-    const responseBody = await db.Manada.findAndCountAll(query);
+    const responseBody = await Manada.findAndCountAll(query);
     const { count } = responseBody;
     const totalPages = Math.ceil(count / limit);
     const manadas = responseBody.rows;
@@ -141,7 +144,7 @@ exports.getManadas = async (req, res) => {
       data.monto = _.get(manada, 'monto');
       data.galeriamanada = _.get(manada, 'galeriamanada');
       data.statusSubscription = _.get(manada, 'statusSubscription', false);
-      const animals = await db.ManadaAnimal.findAndCountAll({
+      const animals = await ManadaAnimal.findAndCountAll({
         where: {
           manada_id: manadaId,
         },
@@ -150,7 +153,7 @@ exports.getManadas = async (req, res) => {
       const animalData = animals.rows;
       const fotos = [];
       for (const animal of animalData) {
-        const animalData1 = await db.Animal.findOne({
+        const animalData1 = await Animal.findOne({
           where: {
             id: animal.animal_id,
             visible: true,
@@ -201,7 +204,7 @@ exports.getAnimalManadas = async (req, res) => {
         manada_id: manadaId,
       },
     };
-    const responseBody = await db.ManadaAnimal.findAll(query);
+    const responseBody = await ManadaAnimal.findAll(query);
     const result = [];
     for (const animal of responseBody) {
       query = {
@@ -210,9 +213,9 @@ exports.getAnimalManadas = async (req, res) => {
           visible: true,
         },
       };
-      const animals = await db.Animal.findOne(query);
+      const animals = await Animal.findOne(query);
       const fundacionId = _.get(animals, 'fundacion_id');
-      const fundacion = await db.Fundacion.findOne({
+      const fundacion = await Fundacion.findOne({
         where: {
           id: fundacionId,
           aprobado: true,
@@ -263,7 +266,7 @@ exports.searchManada = async (req, res) => {
     const response = {
       result,
     };
-    const responseBody = await db.Manada.findAll({
+    const responseBody = await Manada.findAll({
       where: { nombre: { [Op.regexp]: `${q}` } },
     });
 
@@ -301,7 +304,7 @@ exports.deleteAnimalManada = async (req, res) => {
         .status(401)
         .send({ error: 'No esta autorizado para realizar esta operacion!' });
     }
-    await db.ManadaAnimal.destroy({
+    await ManadaAnimal.destroy({
       where: { manada_id: manadaId, animal_id: animalId },
     });
     const response = { result: 'Animal eliminado de la manada' };
@@ -339,7 +342,7 @@ exports.deleteManada = async (req, res) => {
       status: false,
       updatedAt: Date.now(),
     };
-    await db.Manada.update(update, {
+    await Manada.update(update, {
       where: { id },
     });
     const response = { result: 'Manada eliminada exitosamente' };
@@ -376,7 +379,7 @@ exports.updateInfoManada = async (req, res) => {
         ...(!_.isEmpty(galeriamanada) ? { galeriamanada } : {}),
         updatedAt: Date.now(),
       };
-      await db.Manada.update(update, {
+      await Manada.update(update, {
         where: { id },
       });
       response.result = 'Informacion actualizada';

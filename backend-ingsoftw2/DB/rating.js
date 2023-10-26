@@ -1,29 +1,31 @@
-module.exports = (sequelize, DataTypes) => {
-  const Rating = sequelize.define(
-    'Rating',
-    {
-      valor: {
-        type: DataTypes.DECIMAL,
-      },
-      actualizacion_id: {
-        type: DataTypes.INTEGER,
-      },
-      createdAt: {
-        type: DataTypes.DATE,
-      },
-      updatedAt: {
-        type: DataTypes.DATE,
-      },
-    },
-    {
-      tableName: 'rating',
-    },
-  );
+const db = require("../DB/index");
+const { DataTypes } = require("sequelize");
+const ActualizacionAnimal = require("../DB/actualizacion_animal");
 
-  Rating.associate = (models) => {
-    Rating.belongsTo(models.ActualizacionAnimal, {
-      foreignKey: 'actualizacion_id',
-    });
-  };
-  return Rating;
+const Rating = db.sequelize.define(
+  'Rating',
+  {
+    valor: {
+      type: DataTypes.DECIMAL,
+    },
+    actualizacion_id: {
+      type: DataTypes.INTEGER,
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+    },
+  },
+  {
+    tableName: 'rating',
+  },
+);
+
+Rating.associate = () => {
+  Rating.belongsTo(ActualizacionAnimal, {
+    foreignKey: 'actualizacion_id',
+  });
 };
+

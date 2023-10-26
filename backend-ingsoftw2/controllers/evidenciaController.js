@@ -4,8 +4,7 @@ const _ = require('lodash');
 const { validateRequest } = require('../helpers');
 const { validateAdminFund } = require('./helpers');
 
-const db = require('../DB/index');
-
+const Evidencia = require("../DB/evidencia");
 /**
  * Funcion para crear la evidencia de una donacion por parte del administrador de fundacion
  * @param  {*} req
@@ -23,7 +22,7 @@ exports.crearEvidencia = async (req, res) => {
         .status(401)
         .send({ error: 'No esta autorizado para realizar esta operacion!' });
     }
-    const animal = await db.Evidencia.create({
+    const animal = await Evidencia.create({
       donacion_id: donacion,
       descripcion,
       galeria,
@@ -66,7 +65,7 @@ exports.updateEvidencia = async (req, res) => {
       ...(!_.isEmpty(galeria) ? { galeria } : {}),
       updatedAt: Date.now(),
     };
-    const evidencia = await db.Evidencia.update(update, {
+    const evidencia = await Evidencia.update(update, {
       where: { id },
     });
 

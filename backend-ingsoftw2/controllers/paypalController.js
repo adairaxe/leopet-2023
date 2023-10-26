@@ -4,7 +4,9 @@ const request = require('request');
 
 const { changeStatus } = require('./helpers');
 
-const db = require('../DB/index');
+const ManadaAnimal = require("../DB/manada_animal");
+const Manada = require("../DB/manada");
+const Donacion = require("../DB/donacion");
 
 const auth = {
   user: process.env.PAYPAL_CLIENT,
@@ -143,13 +145,13 @@ exports.verifySubscription = async (req, res) => {
       statusSubscription: true,
       updatedAt: Date.now(),
     };
-    await db.Manada.update(update, {
+    await Manada.update(update, {
       where: { subscriptionId },
     });
-    const { rows, count } = await db.ManadaAnimal.findAndCountAll({
+    const { rows, count } = await ManadaAnimal.findAndCountAll({
       include: [
         {
-          model: db.Manada,
+          model: Manada,
           where: { subscriptionId },
           required: true,
         },
@@ -166,7 +168,7 @@ exports.verifySubscription = async (req, res) => {
         pagado: false,
       };
       // eslint-disable-next-line no-await-in-loop
-      await db.Donacion.create(donacion);
+      await Donacion.create(donacion);
       // eslint-disable-next-line no-await-in-loop
       await changeStatus(_.get(animal, 'animal_id'));
     }
@@ -199,7 +201,7 @@ exports.verifyPaymentFailed = async (req, res) => {
     console.log('subscriptionId', subscriptionId);
     console.log('update', update);
 
-    await db.Manada.update(update, {
+    await Manada.update(update, {
       where: { subscriptionId },
     });
   }
@@ -227,7 +229,7 @@ exports.verifyCancelSubscription = async (req, res) => {
       statusSubscription: false,
       updatedAt: Date.now(),
     };
-    await db.Manada.update(update, {
+    await Manada.update(update, {
       where: { subscriptionId },
     });
   }
@@ -247,7 +249,7 @@ exports.cancelSubscription = async (req, res) => {
     const subscription = {
       reason: 'No estoy satisfecho',
     };
-    const manada = await db.Manada.findOne({
+    const manada = await Manada.findOne({
       where: { id: manadaId },
     });
     const subscriptionId = _.get(manada, 'subscriptionId');

@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 
 const { validateRequest } = require('../helpers');
 
-const db = require('../DB/index');
+const Usuario = require("../DB/usuario");
 
 /**
  * Funcion para obtener la informacion de los usuarios: SuperAdmin, Admin de Fundacion y Donador
@@ -16,7 +16,7 @@ exports.getInfo = async (req, res) => {
   await validateRequest(req);
   try {
     const { id } = req.params;
-    let UserInfo = await db.Usuario.findOne({
+    let UserInfo = await Usuario.findOne({
       where: { id },
       attributes: { exclude: ['password'] },
     });
@@ -60,7 +60,7 @@ exports.updateInfo = async (req, res) => {
       ...(!_.isEmpty(direccion) ? { direccion } : {}),
       updatedAt: Date.now(),
     };
-    const UserInfo = await db.Usuario.update(update, {
+    const UserInfo = await Usuario.update(update, {
       where: { id },
     });
 
@@ -89,7 +89,7 @@ exports.updatePassword = async (req, res) => {
   try {
     const { id, password, newPassword } = req.body;
 
-    const oldPassword = await db.Usuario.findOne({
+    const oldPassword = await Usuario.findOne({
       where: {
         id,
       },
@@ -107,7 +107,7 @@ exports.updatePassword = async (req, res) => {
       password: hash,
       updatedAt: Date.now(),
     };
-    const UserInfo = await db.Usuario.update(update, {
+    const UserInfo = await Usuario.update(update, {
       where: { id },
     });
     const response = {

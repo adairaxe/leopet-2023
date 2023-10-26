@@ -12,13 +12,9 @@ const {
   validateUpdateAnimal,
 } = require('./helpers');
 
-const db = require('../DB/index');
-const Usuario = require("../DB/usuario");
-const Fundacion = require("../DB/fundacion");
 const Animal = require("../DB/animal");
 const ManadaAnimal = require("../DB/manada_animal");
 const Manada = require("../DB/manada");
-const Notificacion = require("../DB/notificacion");
 
 /**
  * Funcion para crear un animal en la BD
