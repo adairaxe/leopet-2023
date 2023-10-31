@@ -53,7 +53,7 @@ exports.createFundacion = async (req, res) => {
       telefono,
       aprobado: true,
       comision,
-      //logo: "a logo"
+      logo: ""
     });
     const response = {
       mensaje: 'Fundacion registrada exitosamente.',
@@ -94,6 +94,7 @@ exports.registerFundacion = async (req, res) => {
       telefono,
       aprobado: false,
       comision,
+      logo: ""
     });
     const response = {
       mensaje: 'La solicitud de registro ha sido enviada.',
