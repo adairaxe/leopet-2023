@@ -44,7 +44,7 @@ router.put(
 
 router.post(
   '/delete',
-  passport,
+  //passport,
   AsyncWrapper(fundacionController.deleteFundacion),
 );
 

@@ -92,7 +92,8 @@ exports.registerFundacion = async (req, res) => {
       nombre,
       direccion,
       telefono,
-      aprobado: false,
+      //aprobado: false,
+      aprobado: true,
       comision,
       logo: ""
     });
@@ -398,22 +399,17 @@ exports.getAnimalPadrinosCalificacion = async (req, res) => {
  * @return {Object} response
  */
 exports.deleteFundacion = async (req, res) => {
-  await validateRequest(req);
   try {
     const { fundacionId } = req.body;
-    const update = {
+    const estate_update = {
       aprobado: false,
       updatedAt: Date.now(),
     };
-    const fundacion = await Fundacion.update(update, {
-      where: { id: fundacionId, aprobado: true },
+    const fundacion_response = await Fundacion.update(estate_update, {
+      where: { ruc: fundacionId },
     });
 
-    const response = {
-      mensaje: 'Fundacion eliminada.',
-      result: fundacion,
-    };
-    return res.send(response);
+    return res.send(fundacion_response);
   } catch (error) {
     console.log('ERROR', error);
     const responseError = {
