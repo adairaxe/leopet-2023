@@ -42,9 +42,9 @@ exports.login = async (req, res) => {
     });
 
     // Verify password
-    /* if (!bcrypt.compareSync(password, Password.password)) {
+    if (!bcrypt.compareSync(password, Password.password)) {
       return res.status(401).send(unAuthorizedResponse);
-    } */
+    }
 
     // Make JWT
     const expiresIn = 28800;
