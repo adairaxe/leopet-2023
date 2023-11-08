@@ -159,6 +159,7 @@ exports.verifySubscription = async (req, res) => {
       raw: true,
     });
 
+    // eslint-disable-next-line no-restricted-syntax
     for (const animal of rows) {
       const donacion = {
         donador_id: _.get(animal, 'Manada.userId'),

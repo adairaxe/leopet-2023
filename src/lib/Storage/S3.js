@@ -32,7 +32,7 @@ const prefijo = () => {
   if (hora.length < 2) hora = `0${hora}`;
   if (min.length < 2) min = `0${min}`;
   if (seg.length < 2) seg = `0${seg}`;
-  const prefijo = `${year.toString()
+  const prefix = `${year.toString()
           + month.toString()
           + day.toString()
   }_${
@@ -40,7 +40,7 @@ const prefijo = () => {
   }${min.toString()
   }${seg.toString()}_${
     new Date().getMilliseconds().toString()}`;
-  return prefijo;
+  return prefix;
 };
 
 const updateFile = (
@@ -76,7 +76,8 @@ const deleteFile = (
     Key: name,
   };
   // eslint-disable-next-line no-shadow
-  storage.deleteObject(params, async (err, data) => {
+  // eslint-disable-next-line consistent-return
+  storage.deleteObject(params, async (err) => {
     if (err) {
       return reject(err);
     }

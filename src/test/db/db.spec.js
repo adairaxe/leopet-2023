@@ -1,3 +1,4 @@
+/* eslint-disable */
 const db = require('../../DB/index');
 
 describe('Connection', () => {

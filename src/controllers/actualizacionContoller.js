@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 const _ = require('lodash');
+const Notificacion = require('../DB/notificacion');
 
 const { validateRequest } = require('../helpers');
 const {
@@ -105,7 +106,7 @@ exports.updateActualizacion = async (req, res) => {
       const update = {
         ...(!_.isEmpty(descripcion) ? { descripcion } : {}),
         ...(!_.isEmpty(estado_salud) ? { estado_salud } : {}),
-        ...(!_.isEmpty(galeria) ? { galeria } : {}),
+        // ...(!_.isEmpty(galeria) ? { galeria } : {}), TODO: que hace esto?
         updatedAt: Date.now(),
       };
       const actualizacion = await ActualizacionAnimal.update(update, {
@@ -232,7 +233,7 @@ exports.createRating = async (req, res) => {
     const {
       valor, actualizacion_id,
     } = req.body;
-    const actualizacion = await Rating.create({
+    await Rating.create({
       valor,
       actualizacion_id,
     });
@@ -262,11 +263,10 @@ exports.loadRating = async (req, res) => {
         actualizacion_id: id,
       },
     });
-    promedio = 0;
+    let promedio = 0;
     rows.forEach((element) => {
       promedio += parseFloat(element.valor);
     });
-    console.log(promedio);
     const response = {
       total_ratings: count,
       promedio_ratings: promedio / count,
@@ -274,7 +274,6 @@ exports.loadRating = async (req, res) => {
     return res.send(response);
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.log('ERROR', error);
     const responseError = {
       message: 'Something bad happened!',
       error: error.stack,

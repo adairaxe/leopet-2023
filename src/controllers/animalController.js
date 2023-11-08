@@ -29,7 +29,7 @@ exports.createAnimal = async (req, res) => {
   try {
     const { User } = req;
     const {
-      nombre, especie, raza, descripcion, imagen, galeria,
+      nombre, especie, raza, descripcion, galeria,
       sexo,
       peso,
       enfermedades,
@@ -237,7 +237,6 @@ exports.getAllAnimals = async (req, res) => {
 exports.getAllAnimalsApp = async (req, res) => {
   await validateRequest(req);
   try {
-    const { User } = req;
     const { tipoAnimal = {} } = req.body;
     const page = parseInt(req.query.page || '1', 10);
     const limit = parseInt(req.query.limit || '1', 10);

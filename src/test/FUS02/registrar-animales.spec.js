@@ -1,7 +1,6 @@
+/* eslint-disable */
 const supertest = require('supertest');
 const app = require('../../app');
-const Fundacion = require('../../DB/fundacion');
-const Animal = require('../../DB/animal');
 
 describe('Como fundación quiero registrar nuevos animales en el sistema', () => {
   it('Primero se debe crear el animal', async () => {

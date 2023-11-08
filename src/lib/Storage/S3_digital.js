@@ -21,7 +21,6 @@ const upload = multer({
       });
     },
     key: (request, file, cb) => {
-      console.log(file);
       cb(null, file.originalname);
     },
   }),

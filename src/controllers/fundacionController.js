@@ -259,8 +259,6 @@ exports.getAnimalFundaciones = async (req, res) => {
 exports.getAnimalPadrinosFundacion = async (req, res) => {
   await validateRequest(req);
   try {
-    const { User } = req;
-    const { q } = req.query;
     const { fundacionId } = req.params;
     const limit = parseInt(req.query.limit || '1', 10);
     const page = parseInt(req.query.page || '1', 10);
@@ -321,8 +319,6 @@ exports.getAnimalPadrinosFundacion = async (req, res) => {
 exports.getAnimalPadrinosCalificacion = async (req, res) => {
   await validateRequest(req);
   try {
-    const { User } = req;
-    const { q } = req.query;
     const { fundacionId } = req.params;
     const limit = parseInt(req.query.limit || '1', 10);
     const page = parseInt(req.query.page || '1', 10);
@@ -400,15 +396,15 @@ exports.getAnimalPadrinosCalificacion = async (req, res) => {
 exports.deleteFundacion = async (req, res) => {
   try {
     const { fundacionId } = req.body;
-    const estate_update = {
+    const estateUpdate = {
       aprobado: false,
       updatedAt: Date.now(),
     };
-    const fundacion_response = await Fundacion.update(estate_update, {
+    const fundacionResponse = await Fundacion.update(estateUpdate, {
       where: { ruc: fundacionId },
     });
 
-    return res.send(fundacion_response);
+    return res.send(fundacionResponse);
   } catch (error) {
     console.log('ERROR', error);
     const responseError = {

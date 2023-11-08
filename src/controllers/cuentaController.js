@@ -72,7 +72,6 @@ exports.getAllCuentaBancaria = async (req, res) => {
     });
     const { rows, count } = cuentas;
     result = rows;
-    total = count;
     const totalPages = Math.ceil(count / limit);
     const response = {
       limit,
@@ -169,7 +168,7 @@ exports.updateCuentaBancaria = async (req, res) => {
 exports.updateCuentaBancariaIDCuenta = async (req, res) => {
   await validateRequest(req);
   try {
-    const { cuenta_id } = req.params;
+    const { cuentaId } = req.params;
     const {
       banco, numero, tipo, nombre,
     } = req.body;
@@ -181,7 +180,7 @@ exports.updateCuentaBancariaIDCuenta = async (req, res) => {
       updatedAt: Date.now(),
     };
     const cuenta = await CuentaBancaria.update(update, {
-      where: { id: cuenta_id },
+      where: { id: cuentaId },
     });
 
     const response = {
@@ -202,7 +201,7 @@ exports.updateCuentaBancariaIDCuenta = async (req, res) => {
 exports.updateCuentaPrincipal = async (req, res) => {
   await validateRequest(req);
   try {
-    const { fundacion_id } = req.params;
+    const { fundacionId } = req.params;
     const {
       id,
     } = req.body;
@@ -212,13 +211,13 @@ exports.updateCuentaPrincipal = async (req, res) => {
     };
 
     let cuenta = await CuentaBancaria.update(update, {
-      where: { fundacion_id },
+      where: { fundacionId },
     });
 
     update.principal = true;
 
     cuenta = await CuentaBancaria.update(update, {
-      where: { fundacion_id, id },
+      where: { fundacionId, id },
     });
 
     const response = {

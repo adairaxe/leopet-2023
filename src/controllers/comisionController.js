@@ -1,7 +1,5 @@
 /* eslint-disable no-console */
 
-const _ = require('lodash');
-
 const { validateRequest } = require('../helpers');
 
 const Comision = require('../DB/comision');
@@ -24,12 +22,12 @@ exports.crearComision = async (req, res) => {
   await validateRequest(req);
   try {
     const {
-      fundacionId, total_comision, total_pago,
+      fundacionId, totalComision, totalPago,
     } = req.body;
     const cuenta = await Comision.create({
       fundacion_id: fundacionId,
-      total_comision,
-      total_pago,
+      totalComision,
+      totalPago,
       createdAt: Date.now(),
       visible: true,
     });

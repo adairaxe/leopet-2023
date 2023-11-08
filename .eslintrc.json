@@ -9,5 +9,9 @@
         "ecmaVersion": "latest"
     },
     "rules": {
+        "max-len": ["error", { "code": 120 }],
+        "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
+        "no-await-in-loop": "off"
+
     }
 }

@@ -49,6 +49,7 @@ exports.getReporSuperAdmin = async (req, res) => {
     const { rows } = responseBody;
     const fundaciones = [];
     const total = [];
+    // eslint-disable-next-line no-restricted-syntax
     for (const row of rows) {
       const fundacion = _.get(row, 'Animal.fundacion_id');
       const monto = _.toNumber(_.get(row, 'total'));
@@ -64,6 +65,7 @@ exports.getReporSuperAdmin = async (req, res) => {
     }
     let count = 0;
     const donaciones = [];
+    // eslint-disable-next-line no-restricted-syntax
     for (const id of fundaciones) {
       // eslint-disable-next-line no-await-in-loop
       const fundacion = await Fundacion.findOne({

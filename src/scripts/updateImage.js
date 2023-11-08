@@ -12,6 +12,7 @@ exports.uploadFile = async (req, res) => {
   try {
     const { files } = req;
     const fotos = [];
+    // eslint-disable-next-line no-restricted-syntax
     for (const file of files) {
       const { path: filePath, originalname: fileName } = file;
       // eslint-disable-next-line no-await-in-loop

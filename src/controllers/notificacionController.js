@@ -53,7 +53,6 @@ exports.getNotificaciones = async (req, res) => {
     };
     return res.send(response);
   } catch (error) {
-    console.log('ERROR', error);
     const responseError = {
       message: 'Something bad happened!',
       error: error.stack,
@@ -65,7 +64,6 @@ exports.getNotificaciones = async (req, res) => {
 exports.updateNotificacion = async (req, res) => {
   await validateRequest(req);
   try {
-    const { User } = req;
     const { notificacionId } = req.params;
     const {
       leido, fecha_leido, calificacion, fecha_calificacion,

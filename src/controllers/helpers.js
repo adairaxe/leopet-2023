@@ -8,6 +8,7 @@ const Manada = require('../DB/manada');
 const CuentaBancaria = require('../DB/cuenta_bancaria');
 const Donacion = require('../DB/donacion');
 const Evidencia = require('../DB/evidencia');
+const Usuario = require('../DB/usuario');
 
 const { STATUS_ANIMAL, ROL } = require('../constants');
 
@@ -145,8 +146,8 @@ exports.parseDataPadrinosAnimal = (animal, manada, donador = {}) => {
 
 exports.parseDataAnimalComision = (animal, manada, donador, notificacion = {}) => {
   const comision = 15;
-  const montocomision = _.get(manada, 'monto') * comision / 100;
-  const subtotal = _.get(manada, 'monto') - _.get(manada, 'monto') * comision / 100;
+  const montocomision = _.get(manada, 'monto') * (comision / 100);
+  const subtotal = _.get(manada, 'monto') - (_.get(manada, 'monto') * (comision / 100));
   let calificacion = _.get(notificacion, 'calificacion');
   calificacion = calificacion == null ? 0 : calificacion;
   let total;
@@ -188,12 +189,12 @@ exports.parseDataAnimalComision = (animal, manada, donador, notificacion = {}) =
  */
 exports.validateSuperAdmin = async (userId) => {
   try {
-    const Usuario = await Usuario.findOne({
+    const usuario = await Usuario.findOne({
       where: {
         id: userId,
       },
     });
-    if (_.isEqual(Usuario.role, ROL.ADMIN.ROL_ID)) {
+    if (_.isEqual(usuario.role, ROL.ADMIN.ROL_ID)) {
       return true;
     }
     return false;
@@ -209,13 +210,13 @@ exports.validateSuperAdmin = async (userId) => {
  */
 exports.validateAdminFund = async (userId) => {
   try {
-    const Usuario = await Usuario.findOne({
+    const usuario = await Usuario.findOne({
       where: {
         id: userId,
       },
     });
 
-    if (_.isEqual(Usuario.role, ROL.ADMIN_FUND.ROL_ID)) {
+    if (_.isEqual(usuario.role, ROL.ADMIN_FUND.ROL_ID)) {
       return true;
     }
     return false;
@@ -231,12 +232,12 @@ exports.validateAdminFund = async (userId) => {
  */
 exports.validateDonador = async (userId) => {
   try {
-    const Usuario = await Usuario.findOne({
+    const usuario = await Usuario.findOne({
       where: {
         id: userId,
       },
     });
-    if (_.isEqual(Usuario.role, ROL.DONADOR.ROL_ID)) {
+    if (_.isEqual(usuario.role, ROL.DONADOR.ROL_ID)) {
       return true;
     }
     return false;
@@ -254,14 +255,14 @@ exports.validateDonador = async (userId) => {
  */
 exports.validateUpdateAnimal = async (fundacionId, animalId) => {
   try {
-    const Animal = await Animal.findOne({
+    const animal = await Animal.findOne({
       where: {
         id: animalId,
         fundacion_id: fundacionId,
       },
     });
 
-    if (_.isEmpty(Animal)) {
+    if (_.isEmpty(animal)) {
       return false;
     }
     return true;
@@ -278,14 +279,14 @@ exports.validateUpdateAnimal = async (fundacionId, animalId) => {
  */
 exports.validateAnimalManada = async (manadaId, animalId) => {
   try {
-    const Animal = await ManadaAnimal.findOne({
+    const animal = await ManadaAnimal.findOne({
       where: {
         manada_id: manadaId,
         animal_id: animalId,
       },
     });
 
-    if (_.isEmpty(Animal)) {
+    if (_.isEmpty(animal)) {
       return true;
     }
     return false;
