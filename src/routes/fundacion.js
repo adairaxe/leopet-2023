@@ -26,15 +26,14 @@ router.get(
 );
 
 router.get(
-  "/padrinos/:fundacionId",  
-  AsyncWrapper(fundacionController.getAnimalPadrinosFundacion)
+  '/padrinos/:fundacionId',
+  AsyncWrapper(fundacionController.getAnimalPadrinosFundacion),
 );
 
 router.get(
-  "/padrinosCalificacion/:fundacionId",  
-  AsyncWrapper(fundacionController.getAnimalPadrinosCalificacion)
+  '/padrinosCalificacion/:fundacionId',
+  AsyncWrapper(fundacionController.getAnimalPadrinosCalificacion),
 );
-
 
 router.put(
   '/update',
@@ -44,7 +43,7 @@ router.put(
 
 router.post(
   '/delete',
-  //passport,
+  // passport,
   AsyncWrapper(fundacionController.deleteFundacion),
 );
 

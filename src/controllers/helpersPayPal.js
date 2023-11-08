@@ -4,7 +4,7 @@ const dayjs = require('dayjs');
 const axios = require('axios');
 const utc = require('dayjs/plugin/utc');
 
-const Manada = require("../DB/manada");
+const Manada = require('../DB/manada');
 
 const config = {
   headers: {

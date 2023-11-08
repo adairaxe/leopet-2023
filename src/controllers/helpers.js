@@ -1,13 +1,13 @@
 /* eslint-disable no-await-in-loop, no-console */
 
 const _ = require('lodash');
-const Fundacion = require("../DB/fundacion");
-const Animal = require("../DB/animal");
-const ManadaAnimal = require("../DB/manada_animal");
-const Manada = require("../DB/manada");
-const CuentaBancaria = require("../DB/cuenta_bancaria");
-const Donacion = require("../DB/donacion");
-const Evidencia = require("../DB/evidencia");
+const Fundacion = require('../DB/fundacion');
+const Animal = require('../DB/animal');
+const ManadaAnimal = require('../DB/manada_animal');
+const Manada = require('../DB/manada');
+const CuentaBancaria = require('../DB/cuenta_bancaria');
+const Donacion = require('../DB/donacion');
+const Evidencia = require('../DB/evidencia');
 
 const { STATUS_ANIMAL, ROL } = require('../constants');
 
@@ -26,15 +26,15 @@ exports.parseData = (animal, fundacion, historial = {}) => {
     especie: _.get(animal, 'especie'),
     raza: _.get(animal, 'raza'),
     descripcion: _.get(animal, 'descripcion'),
-    edad:_.get(animal, 'edad'),   
-    sexo:_.get(animal, 'sexo'),    
-    peso:_.get(animal, 'peso'),
-    enfermedades:_.get(animal, 'enfermedades'),
-    esterilizacion:_.get(animal, 'esterilizacion'),
-    vacunacion:_.get(animal, 'vacunacion'),
-    desparasitacion:_.get(animal, 'desparasitacion'),
-    fecha_rescate:_.get(animal, 'fecha_rescate'),
-    fecha_registro:_.get(animal, 'fecha_registro'),
+    edad: _.get(animal, 'edad'),
+    sexo: _.get(animal, 'sexo'),
+    peso: _.get(animal, 'peso'),
+    enfermedades: _.get(animal, 'enfermedades'),
+    esterilizacion: _.get(animal, 'esterilizacion'),
+    vacunacion: _.get(animal, 'vacunacion'),
+    desparasitacion: _.get(animal, 'desparasitacion'),
+    fecha_rescate: _.get(animal, 'fecha_rescate'),
+    fecha_registro: _.get(animal, 'fecha_registro'),
     imagen: _.get(animal, 'imagen'),
     galeria: _.get(animal, 'galeria'),
     fundacion_id: _.get(animal, 'fundacion_id'),
@@ -47,9 +47,10 @@ exports.parseData = (animal, fundacion, historial = {}) => {
 };
 
 exports.parseDataActualizacion = (
-  actualizacion, 
-  animal, 
-  fundacion = {}) => {
+  actualizacion,
+  animal,
+  fundacion = {},
+) => {
   const data = {
     id: _.get(actualizacion, 'id'),
     fecha: _.get(actualizacion, 'fecha'),
@@ -70,40 +71,41 @@ exports.parseDataActualizacion = (
       imagen: _.get(animal, 'imagen'),
       galeria: _.get(animal, 'galeria'),
       fundacion_id: _.get(animal, 'fundacion_id'),
-      edad:_.get(animal, 'edad'),      
-      sexo:_.get(animal, 'sexo'),    
-      peso:_.get(animal, 'peso'),
-      enfermedades:_.get(animal, 'enfermedades'),
-      esterilizacion:_.get(animal, 'esterilizacion'),
-      vacunacion:_.get(animal, 'vacunacion'),
-      desparasitacion:_.get(animal, 'desparasitacion'),
-      fecha_rescate:_.get(animal, 'fecha_rescate'),
-      fecha_registro:_.get(animal, 'fecha_registro'),
+      edad: _.get(animal, 'edad'),
+      sexo: _.get(animal, 'sexo'),
+      peso: _.get(animal, 'peso'),
+      enfermedades: _.get(animal, 'enfermedades'),
+      esterilizacion: _.get(animal, 'esterilizacion'),
+      vacunacion: _.get(animal, 'vacunacion'),
+      desparasitacion: _.get(animal, 'desparasitacion'),
+      fecha_rescate: _.get(animal, 'fecha_rescate'),
+      fecha_registro: _.get(animal, 'fecha_registro'),
     },
   };
   return data;
 };
 
 exports.parseDataNotificacion = (
-  notificacion, 
-  actualizacion, 
-  animal, 
-  fundacion  = {}) => { 
+  notificacion,
+  actualizacion,
+  animal,
+  fundacion = {},
+) => {
   /* fundacion,  galeria  = {}) => { */
   const data = {
     id: _.get(notificacion, 'id'),
-    leido:_.get(notificacion, 'leido'),
-    calificacion:_.get(notificacion, 'calificacion'),
-    actualizacion:{
+    leido: _.get(notificacion, 'leido'),
+    calificacion: _.get(notificacion, 'calificacion'),
+    actualizacion: {
       fecha: _.get(actualizacion, 'fecha'),
       descripcion: _.get(actualizacion, 'descripcion'),
       estado_salud: _.get(actualizacion, 'estado_salud'),
-      image: _.get(actualizacion, 'image'),      
+      image: _.get(actualizacion, 'image'),
       fundacion_id: _.get(actualizacion, 'fundacion_id'),
       fundacion: _.get(fundacion, 'nombre'),
       /* galeria: galeria.rows, */
       galeria: _.get(actualizacion, 'galeria'),
-    },    
+    },
     animal: {
       id: _.get(animal, 'id'),
       nombre: _.get(animal, 'nombre'),
@@ -114,67 +116,67 @@ exports.parseDataNotificacion = (
       imagen: _.get(animal, 'imagen'),
       galeria: _.get(animal, 'galeria'),
       fundacion_id: _.get(animal, 'fundacion_id'),
-      edad:_.get(animal, 'edad'),
-      peso:_.get(animal, 'peso'),
-      sexo:_.get(animal, 'sexo'),     
-      enfermedades:_.get(animal, 'enfermedades'),
-      esterilizacion:_.get(animal, 'esterilizacion'),
-      vacunacion:_.get(animal, 'vacunacion'),
-      desparasitacion:_.get(animal, 'desparasitacion'),
-      fecha_rescate:_.get(animal, 'fecha_rescate'),
-      fecha_registro:_.get(animal, 'fecha_registro'),
+      edad: _.get(animal, 'edad'),
+      peso: _.get(animal, 'peso'),
+      sexo: _.get(animal, 'sexo'),
+      enfermedades: _.get(animal, 'enfermedades'),
+      esterilizacion: _.get(animal, 'esterilizacion'),
+      vacunacion: _.get(animal, 'vacunacion'),
+      desparasitacion: _.get(animal, 'desparasitacion'),
+      fecha_rescate: _.get(animal, 'fecha_rescate'),
+      fecha_registro: _.get(animal, 'fecha_registro'),
     },
   };
   return data;
 };
 
-exports.parseDataPadrinosAnimal = (animal,manada,donador = {}) =>{
+exports.parseDataPadrinosAnimal = (animal, manada, donador = {}) => {
   const data = {
-    nombre: _.get(animal, "nombre"),    
-    especie: _.get(animal, "especie"),
-    raza: _.get(animal, "raza"),
-    padrinoNombre:_.get(donador, "nombres"),
-    padrinoApellido:_.get(donador, "apellidos"),  
-    manadaNombre:  _.get(manada, "nombre"), 
-    monto:_.get(manada, "monto"), 
+    nombre: _.get(animal, 'nombre'),
+    especie: _.get(animal, 'especie'),
+    raza: _.get(animal, 'raza'),
+    padrinoNombre: _.get(donador, 'nombres'),
+    padrinoApellido: _.get(donador, 'apellidos'),
+    manadaNombre: _.get(manada, 'nombre'),
+    monto: _.get(manada, 'monto'),
   };
   return data;
 };
 
-exports.parseDataAnimalComision = (animal,manada,donador,notificacion = {}) =>{
-  const comision=15;
-  const montocomision=_.get(manada, "monto")*comision/100;
-  const subtotal=_.get(manada, "monto")-_.get(manada, "monto")*comision/100;
-  let calificacion=_.get(notificacion, "calificacion");
-  calificacion=calificacion==null ?0:calificacion;
+exports.parseDataAnimalComision = (animal, manada, donador, notificacion = {}) => {
+  const comision = 15;
+  const montocomision = _.get(manada, 'monto') * comision / 100;
+  const subtotal = _.get(manada, 'monto') - _.get(manada, 'monto') * comision / 100;
+  let calificacion = _.get(notificacion, 'calificacion');
+  calificacion = calificacion == null ? 0 : calificacion;
   let total;
-  if (calificacion>=0 && calificacion<1){
-    total=subtotal*0;
-  }else  if (calificacion>=1 && calificacion<2){
-    total=subtotal/1.25;
-  }else  if (calificacion>=2 && calificacion<3){
-  total=subtotal/1.50;
-  }else  if (calificacion>=3 && calificacion<4){
-    total=subtotal/1.75;
-  }else  if (calificacion>=4 && calificacion<=5){
-    total=subtotal;
+  if (calificacion >= 0 && calificacion < 1) {
+    total = subtotal * 0;
+  } else if (calificacion >= 1 && calificacion < 2) {
+    total = subtotal / 1.25;
+  } else if (calificacion >= 2 && calificacion < 3) {
+    total = subtotal / 1.50;
+  } else if (calificacion >= 3 && calificacion < 4) {
+    total = subtotal / 1.75;
+  } else if (calificacion >= 4 && calificacion <= 5) {
+    total = subtotal;
   }
-  const data = {    
-    nombre: _.get(animal, "nombre"),    
-    especie: _.get(animal, "especie"),
-    raza: _.get(animal, "raza"),
-    padrinoNombre:_.get(donador, "nombres"),
-    padrinoApellido:_.get(donador, "apellidos"),  
-    manadaNombre:  _.get(manada, "nombre"), 
-    monto:_.get(manada, "monto"), 
-    montocomision:montocomision, 
-    subtotal:subtotal,
-    calificacion:calificacion,  
-    total:total, 
-    animalid: _.get(animal, "id"),
-    userid:_.get(donador, "id"),
-    manadaid: _.get(manada, "id"),  
-    notificacionid: _.get(notificacion, "id"),
+  const data = {
+    nombre: _.get(animal, 'nombre'),
+    especie: _.get(animal, 'especie'),
+    raza: _.get(animal, 'raza'),
+    padrinoNombre: _.get(donador, 'nombres'),
+    padrinoApellido: _.get(donador, 'apellidos'),
+    manadaNombre: _.get(manada, 'nombre'),
+    monto: _.get(manada, 'monto'),
+    montocomision,
+    subtotal,
+    calificacion,
+    total,
+    animalid: _.get(animal, 'id'),
+    userid: _.get(donador, 'id'),
+    manadaid: _.get(manada, 'id'),
+    notificacionid: _.get(notificacion, 'id'),
   };
   return data;
 };

@@ -4,7 +4,7 @@ const _ = require('lodash');
 const { validateRequest } = require('../helpers');
 const { validateAdminFund } = require('./helpers');
 
-const Evidencia = require("../DB/evidencia");
+const Evidencia = require('../DB/evidencia');
 /**
  * Funcion para crear la evidencia de una donacion por parte del administrador de fundacion
  * @param  {*} req

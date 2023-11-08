@@ -1,9 +1,9 @@
-const db = require("../DB/index");
-const { DataTypes } = require("sequelize");
+const { DataTypes } = require('sequelize');
+const db = require('./index');
 
 const Comision = db.sequelize.define(
   'Comision',
-  {        
+  {
     fundacion_id: {
       type: DataTypes.INTEGER,
     },
@@ -17,11 +17,11 @@ const Comision = db.sequelize.define(
       type: DataTypes.BOOLEAN,
     },
     total_comision: {
-        type: DataTypes.DOUBLE(11, 2),
-      },
-      total_pago: {
-        type: DataTypes.DOUBLE(11, 2),
-      },
+      type: DataTypes.DOUBLE(11, 2),
+    },
+    total_pago: {
+      type: DataTypes.DOUBLE(11, 2),
+    },
   },
   {
     tableName: 'comision',

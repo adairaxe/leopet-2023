@@ -20,7 +20,7 @@ router.post(
 );
 
 router.post(
-  '/deleteFile',  
+  '/deleteFile',
   AsyncWrapper(amazonS3.deleteFile),
 );
 

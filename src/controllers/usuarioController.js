@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 
 const { validateRequest } = require('../helpers');
 
-const Usuario = require("../DB/usuario");
+const Usuario = require('../DB/usuario');
 
 /**
  * Funcion para obtener la informacion de los usuarios: SuperAdmin, Admin de Fundacion y Donador

@@ -12,9 +12,9 @@ const {
   validateUpdateAnimal,
 } = require('./helpers');
 
-const Animal = require("../DB/animal");
-const ManadaAnimal = require("../DB/manada_animal");
-const Manada = require("../DB/manada");
+const Animal = require('../DB/animal');
+const ManadaAnimal = require('../DB/manada_animal');
+const Manada = require('../DB/manada');
 
 /**
  * Funcion para crear un animal en la BD
@@ -23,19 +23,19 @@ const Manada = require("../DB/manada");
  * @return {Object} response
  */
 
-//DESCOMENTAR
+// DESCOMENTAR
 exports.createAnimal = async (req, res) => {
-  //await validateRequest(req);
+  // await validateRequest(req);
   try {
     const { User } = req;
     const {
-      nombre, especie, raza, descripcion, imagen, galeria, 
+      nombre, especie, raza, descripcion, imagen, galeria,
       sexo,
       peso,
       enfermedades,
       esterilizacion,
       vacunacion,
-      desparasitacion
+      desparasitacion,
     } = req.body;
 
     /* if (!(await validateAdminFund(User.id))) {
@@ -49,9 +49,9 @@ exports.createAnimal = async (req, res) => {
       especie,
       raza,
       descripcion,
-      imagen:'',
+      imagen: '',
       galeria,
-      //fundacion_id: User.fundacionId,
+      // fundacion_id: User.fundacionId,
       fundacion_id: User.id,
       visible: true,
       sexo,
@@ -59,12 +59,12 @@ exports.createAnimal = async (req, res) => {
       enfermedades,
       esterilizacion,
       vacunacion,
-      desparasitacion
+      desparasitacion,
     });
     const response = {
       mensaje: 'Animal creado exitosamente.',
       result: animal,
-    };    
+    };
     return res.send(response);
   } catch (error) {
     console.log('ERROR', error);
@@ -95,8 +95,8 @@ exports.updateAnimal = async (req, res) => {
       enfermedades,
       esterilizacion,
       vacunacion,
-      desparasitacion
-    } = req.body;    
+      desparasitacion,
+    } = req.body;
     const response = {
       result: [],
     };
@@ -118,10 +118,10 @@ exports.updateAnimal = async (req, res) => {
         vacunacion,
         desparasitacion,
         updatedAt: Date.now(),
-      };      
+      };
       const animal = await Animal.update(update, {
         where: { id: animalId, fundacion_id: User.fundacionId },
-      });      
+      });
       response.mensaje = 'Informacion del animal actualizada.';
       response.result = animal;
     }
@@ -172,7 +172,7 @@ exports.getAllAnimals = async (req, res) => {
       for (const animals of rows) {
         const fundacionId = _.get(animals, 'fundacion_id');
         const fundacion = await getFundacionInfo(fundacionId);
-        const data = parseData(animals, fundacion);        
+        const data = parseData(animals, fundacion);
         result.push(data);
       }
     } else {
@@ -222,7 +222,7 @@ exports.getAllAnimals = async (req, res) => {
       totalPages,
       total,
       result,
-    };    
+    };
     return res.send(response);
   } catch (error) {
     console.log('ERROR', error);
@@ -244,8 +244,8 @@ exports.getAllAnimalsApp = async (req, res) => {
     let total;
     let query = {};
     let responseBody;
-    const result = [];    
-    if (!_.isNull(tipoAnimal)) {      
+    const result = [];
+    if (!_.isNull(tipoAnimal)) {
       if (tipoAnimal == 'TODOS') {
         query = {
           where: {
@@ -274,7 +274,7 @@ exports.getAllAnimalsApp = async (req, res) => {
     for (const animals of rows) {
       const fundacionId = _.get(animals, 'fundacion_id');
       const fundacion = await getFundacionInfo(fundacionId);
-      const data = parseData(animals, fundacion);      
+      const data = parseData(animals, fundacion);
       result.push(data);
     }
 
@@ -308,7 +308,7 @@ exports.getAllAnimalsFundacionApp = async (req, res) => {
     let query = {};
     let responseBody;
     const result = [];
-    if (!_.isNull(id_fundacion)) {      
+    if (!_.isNull(id_fundacion)) {
       query = {
         where: {
           fundacion_id: id_fundacion,
@@ -326,7 +326,7 @@ exports.getAllAnimalsFundacionApp = async (req, res) => {
     for (const animals of rows) {
       const fundacionId = _.get(animals, 'fundacion_id');
       const fundacion = await getFundacionInfo(fundacionId);
-      const data = parseData(animals, fundacion);      
+      const data = parseData(animals, fundacion);
       result.push(data);
     }
 

@@ -7,7 +7,7 @@ const { ROL } = require('../constants');
 const { validateRequest } = require('../helpers');
 
 const Usuario = require('../DB/usuario');
-const AdminFund = require("../DB/administrador_fund");
+const AdminFund = require('../DB/administrador_fund');
 
 /**
  * Funcion encargada del inicio de sesion de todos los usuarios: SuperAdmin, Administrador Plataforma,

@@ -11,10 +11,10 @@ const {
   validateAnimalManada,
 } = require('./helpers');
 
-const Fundacion = require("../DB/fundacion");
-const Animal = require("../DB/animal");
-const ManadaAnimal = require("../DB/manada_animal");
-const Manada = require("../DB/manada");
+const Fundacion = require('../DB/fundacion');
+const Animal = require('../DB/animal');
+const ManadaAnimal = require('../DB/manada_animal');
+const Manada = require('../DB/manada');
 
 const NUMERO_MAXIMO_FOTOS = 4;
 
@@ -29,14 +29,14 @@ exports.createManada = async (req, res) => {
   const { User } = req;
 
   try {
-    const { nombre, monto ,galeriamanada} = req.body;
+    const { nombre, monto, galeriamanada } = req.body;
 
     const manada = await Manada.create({
       nombre,
       monto,
       userId: User.id,
       status: 1,
-      galeriamanada
+      galeriamanada,
     });
     const data = {
       id: _.get(manada, 'id'),
@@ -367,7 +367,9 @@ exports.updateInfoManada = async (req, res) => {
   await validateRequest(req);
   try {
     const { User } = req;
-    const { id, nombre, monto,galeriamanada } = req.body;
+    const {
+      id, nombre, monto, galeriamanada,
+    } = req.body;
     const validationManada = await validateManada(id, User.id);
     const response = {
       result: 'No tiene credenciales',

@@ -3,9 +3,9 @@ const dayjs = require('dayjs');
 const { Op } = require('sequelize');
 const sequelize = require('sequelize');
 
-const Fundacion = require("../DB/fundacion");
-const Animal = require("../DB/animal");
-const Donacion = require("../DB/donacion");
+const Fundacion = require('../DB/fundacion');
+const Animal = require('../DB/animal');
+const Donacion = require('../DB/donacion');
 
 /**
  * Funcion para obtener reporte de las donaciones filtradas por fecha de creacion

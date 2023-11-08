@@ -1,7 +1,7 @@
-const db = require("../DB/index");
-const { DataTypes } = require("sequelize");
-const Animal = require("../DB/animal");
-const Fundacion = require("../DB/fundacion");
+const { DataTypes } = require('sequelize');
+const db = require('./index');
+const Animal = require('./animal');
+const Fundacion = require('./fundacion');
 
 const ActualizacionAnimal = db.sequelize.define(
   'ActualizacionAnimal',
@@ -54,4 +54,4 @@ ActualizacionAnimal.associate = () => {
   });
 };
 
-module.exports = ActualizacionAnimal
+module.exports = ActualizacionAnimal;

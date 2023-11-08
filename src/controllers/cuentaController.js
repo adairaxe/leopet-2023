@@ -4,8 +4,7 @@ const _ = require('lodash');
 
 const { validateRequest } = require('../helpers');
 
-const CuentaBancaria = require("../DB/cuenta_bancaria");
-
+const CuentaBancaria = require('../DB/cuenta_bancaria');
 
 /**
  * Funcion para obtener la informacion de la cuenta bancaria registrada por una fundacion
@@ -15,7 +14,7 @@ const CuentaBancaria = require("../DB/cuenta_bancaria");
  */
 exports.getCuentaBancaria = async (req, res) => {
   await validateRequest(req);
-  try {    
+  try {
     const { id } = req.params;
     const result = await CuentaBancaria.findOne({
       where: {
@@ -39,14 +38,14 @@ exports.getCuentaBancaria = async (req, res) => {
 
 exports.getCuentaBancariaPrincipal = async (req, res) => {
   await validateRequest(req);
-  try {    
+  try {
     const { id } = req.params;
     const result = await CuentaBancaria.findOne({
       where: {
         fundacion_id: id,
-        principal:true,
+        principal: true,
       },
-    });   
+    });
     console.log(result.dataValues);
     return res.send(result.dataValues);
   } catch (error) {
@@ -61,7 +60,7 @@ exports.getCuentaBancariaPrincipal = async (req, res) => {
 
 exports.getAllCuentaBancaria = async (req, res) => {
   await validateRequest(req);
-  try {    
+  try {
     const { id } = req.params;
     const limit = parseInt(req.query.limit || '1', 10);
     const page = parseInt(req.query.page || '1', 10);
@@ -72,7 +71,7 @@ exports.getAllCuentaBancaria = async (req, res) => {
       },
     });
     const { rows, count } = cuentas;
-    result=rows;
+    result = rows;
     total = count;
     const totalPages = Math.ceil(count / limit);
     const response = {
@@ -150,7 +149,7 @@ exports.updateCuentaBancaria = async (req, res) => {
     };
     const cuenta = await CuentaBancaria.update(update, {
       where: { fundacion_id: id },
-    });    
+    });
 
     const response = {
       mensaje: 'Cuenta bancaria actualizada exitosamente.',
@@ -183,7 +182,7 @@ exports.updateCuentaBancariaIDCuenta = async (req, res) => {
     };
     const cuenta = await CuentaBancaria.update(update, {
       where: { id: cuenta_id },
-    });    
+    });
 
     const response = {
       mensaje: 'Cuenta bancaria actualizada exitosamente.',
@@ -200,7 +199,6 @@ exports.updateCuentaBancariaIDCuenta = async (req, res) => {
   }
 };
 
-
 exports.updateCuentaPrincipal = async (req, res) => {
   await validateRequest(req);
   try {
@@ -208,21 +206,20 @@ exports.updateCuentaPrincipal = async (req, res) => {
     const {
       id,
     } = req.body;
-    let update = {      
+    const update = {
       principal: false,
       updatedAt: Date.now(),
     };
-    
+
     let cuenta = await CuentaBancaria.update(update, {
-      where: { fundacion_id: fundacion_id },
+      where: { fundacion_id },
     });
 
-    update.principal=true;
+    update.principal = true;
 
     cuenta = await CuentaBancaria.update(update, {
-      where: { fundacion_id: fundacion_id , id:id},
+      where: { fundacion_id, id },
     });
-
 
     const response = {
       mensaje: 'Cuenta bancaria actualizada exitosamente.',
@@ -243,7 +240,7 @@ exports.deleteCuenta = async (req, res) => {
   await validateRequest(req);
   try {
     const { cuentaId } = req.params;
-    
+
     let mensaje = 'Cuenta eliminado exitosamente';
     const cuenta = await CuentaBancaria.destroy({
       where: { id: cuentaId },
@@ -251,7 +248,7 @@ exports.deleteCuenta = async (req, res) => {
     if (_.isEmpty(cuenta)) {
       mensaje = 'Actualizacion no encontrada';
     }
-  
+
     const response = {
       mensaje,
       result: cuenta,
@@ -267,4 +264,3 @@ exports.deleteCuenta = async (req, res) => {
     return res.status(500).send(JSON.stringify(responseError));
   }
 };
-

@@ -16,9 +16,9 @@ exports.uploadFile = async (req, res) => {
       const { path: filePath, originalname: fileName } = file;
       // eslint-disable-next-line no-await-in-loop
       const location = await storage.updateFile(fileName, filePath, {
-        //Bucket: 'proyecto.imagenes',
+        // Bucket: 'proyecto.imagenes',
         Bucket: process.env.S3_BUCKET,
-      });      
+      });
       fotos.push(location);
       fs.unlinkSync(filePath);
     }
@@ -41,20 +41,20 @@ exports.uploadFile = async (req, res) => {
 exports.deleteFile = async (req, res) => {
   try {
     const { file } = req.body;
-    const len=file.length;
-    const lenhttps='https://';
-    const inicio= (
-      lenhttps.length+
-      process.env.DIGITAL_BUCKET.length+
-      process.env.DIGITAL_ENDPOINT.length);  
-    const fileDelete=file.substring(inicio,len);    
-      // eslint-disable-next-line no-await-in-loop
-      await storage.deleteFile(fileDelete, {       
-        Bucket: process.env.S3_BUCKET,
-      });       
-    
+    const len = file.length;
+    const lenhttps = 'https://';
+    const inicio = (
+      lenhttps.length
+      + process.env.DIGITAL_BUCKET.length
+      + process.env.DIGITAL_ENDPOINT.length);
+    const fileDelete = file.substring(inicio, len);
+    // eslint-disable-next-line no-await-in-loop
+    await storage.deleteFile(fileDelete, {
+      Bucket: process.env.S3_BUCKET,
+    });
+
     const response = {
-      message: 'Imagen eliminada exitosamente',      
+      message: 'Imagen eliminada exitosamente',
     };
     return res.status(200).send(response);
   } catch (error) {
@@ -67,4 +67,3 @@ exports.deleteFile = async (req, res) => {
     return res.status(500).send(JSON.stringify(responseError));
   }
 };
-

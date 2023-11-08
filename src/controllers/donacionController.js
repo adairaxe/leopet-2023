@@ -8,10 +8,10 @@ const { getEvidencia } = require('./helpers');
 const { validateRequest } = require('../helpers');
 const { createPlanManada } = require('./helpersPayPal');
 
-const Animal = require("../DB/animal");
-const Manada = require("../DB/manada");
-const Donacion = require("../DB/donacion");
-const Usuario = require("../DB/usuario");
+const Animal = require('../DB/animal');
+const Manada = require('../DB/manada');
+const Donacion = require('../DB/donacion');
+const Usuario = require('../DB/usuario');
 
 /**
  * Funcion para obtener todas las donaciones

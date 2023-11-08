@@ -1,5 +1,5 @@
-const db = require("../DB/index");
-const { DataTypes } = require("sequelize");
+const { DataTypes } = require('sequelize');
+const db = require('./index');
 
 const CuentaBancaria = db.sequelize.define(
   'CuentaBancaria',

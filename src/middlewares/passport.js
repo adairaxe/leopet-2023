@@ -2,7 +2,7 @@ const _ = require('lodash');
 const jwt = require('jsonwebtoken');
 
 const Usuario = require('../DB/usuario');
-const AdminFund = require("../DB/administrador_fund");
+const AdminFund = require('../DB/administrador_fund');
 const { ROL } = require('../constants');
 
 const JWT_SECRET = 'secret';

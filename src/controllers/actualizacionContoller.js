@@ -8,20 +8,20 @@ const {
   getFundacionInfo,
 } = require('./helpers');
 
-const Animal = require("../DB/animal");
-const ManadaAnimal = require("../DB/manada_animal");
-const Manada = require("../DB/manada");
-const Rating = require("../DB/rating");
-const ActualizacionAnimal = require("../DB/actualizacion_animal");
+const Animal = require('../DB/animal');
+const ManadaAnimal = require('../DB/manada_animal');
+const Manada = require('../DB/manada');
+const Rating = require('../DB/rating');
+const ActualizacionAnimal = require('../DB/actualizacion_animal');
 
 exports.createActualizacion = async (req, res) => {
   await validateRequest(req);
   try {
     const {
-      descripcion, 
-      estado_salud, 
-      animal_id, 
-      fundacion_id, 
+      descripcion,
+      estado_salud,
+      animal_id,
+      fundacion_id,
       fecha,
       galeria,
     } = req.body;
@@ -46,35 +46,35 @@ exports.createActualizacion = async (req, res) => {
     } */
     const manadasAnimal = await ManadaAnimal.findAndCountAll({
       where: {
-        animal_id: animal_id,
+        animal_id,
       },
-    });  
-    
-    for (const manadaAnimal of manadasAnimal.rows){
-      const manadaId = _.get(manadaAnimal, "manada_id");
+    });
+
+    for (const manadaAnimal of manadasAnimal.rows) {
+      const manadaId = _.get(manadaAnimal, 'manada_id');
       const manada = await Manada.findOne({
         where: {
           id: manadaId,
         },
       });
-      const donadorId = _.get(manada, "userId");
-      
+      const donadorId = _.get(manada, 'userId');
+
       const notificacion = await Notificacion.create({
-        actualizacion_id:actualizacion.id,
-        usuario_id:donadorId,
-        fundacion_id:fundacion_id,
-        animal_id: animal_id,
-        createdAt:Date.now(),        
+        actualizacion_id: actualizacion.id,
+        usuario_id: donadorId,
+        fundacion_id,
+        animal_id,
+        createdAt: Date.now(),
         visible: true,
-        leido:false,        
-      });      
+        leido: false,
+      });
       notificaciones.push(notificacion);
-    }      
+    }
 
     const response = {
       mensaje: 'Actualizacion registrada exitosamente.',
       result: actualizacion,
-      result2:notificaciones,
+      result2: notificaciones,
     };
     return res.send(response);
   } catch (error) {
@@ -196,7 +196,7 @@ exports.getActualizaciones = async (req, res) => {
       });
       // eslint-disable-next-line no-await-in-loop
       const fundacion = await getFundacionInfo(fundacionId);
-     /*  const galeria = await ActualizacionGaleria.findAndCountAll({
+      /*  const galeria = await ActualizacionGaleria.findAndCountAll({
         where: {
           actualizacion_id: actualizacion.id,
         },
@@ -230,11 +230,11 @@ exports.createRating = async (req, res) => {
   await validateRequest(req);
   try {
     const {
-      valor, actualizacion_id
+      valor, actualizacion_id,
     } = req.body;
     const actualizacion = await Rating.create({
       valor,
-      actualizacion_id
+      actualizacion_id,
     });
     const response = {
       mensaje: 'Rating registrado exitosamente.',
@@ -255,21 +255,21 @@ exports.loadRating = async (req, res) => {
   await validateRequest(req);
   try {
     const {
-      id
+      id,
     } = req.body;
     const { count, rows } = await Rating.findAndCountAll({
       where: {
-        actualizacion_id:id
-      }
+        actualizacion_id: id,
+      },
     });
-    promedio=0
-    rows.forEach(element => {
-          promedio+=parseFloat(element.valor)
-    })
-    console.log(promedio)
+    promedio = 0;
+    rows.forEach((element) => {
+      promedio += parseFloat(element.valor);
+    });
+    console.log(promedio);
     const response = {
-      total_ratings:count,
-      promedio_ratings:promedio/count
+      total_ratings: count,
+      promedio_ratings: promedio / count,
     };
     return res.send(response);
   } catch (error) {

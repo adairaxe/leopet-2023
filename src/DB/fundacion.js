@@ -1,5 +1,5 @@
-const db = require("../DB/index");
-const { DataTypes } = require("sequelize");
+const { DataTypes } = require('sequelize');
+const db = require('./index');
 
 const Fundacion = db.sequelize.define(
   'Fundacion',
@@ -18,9 +18,9 @@ const Fundacion = db.sequelize.define(
     },
     aprobado: {
       type: DataTypes.BOOLEAN,
-    },  
+    },
     comision: {
-        type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL,
     },
     createdAt: {
       type: DataTypes.DATE,

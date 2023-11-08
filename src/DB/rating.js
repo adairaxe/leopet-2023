@@ -1,6 +1,6 @@
-const db = require("../DB/index");
-const { DataTypes } = require("sequelize");
-const ActualizacionAnimal = require("../DB/actualizacion_animal");
+const { DataTypes } = require('sequelize');
+const db = require('./index');
+const ActualizacionAnimal = require('./actualizacion_animal');
 
 const Rating = db.sequelize.define(
   'Rating',
@@ -28,4 +28,3 @@ Rating.associate = () => {
     foreignKey: 'actualizacion_id',
   });
 };
-

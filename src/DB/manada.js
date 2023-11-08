@@ -1,6 +1,6 @@
-const db = require("../DB/index");
-const { DataTypes } = require("sequelize");
-const Usuario = require("../DB/usuario");
+const { DataTypes } = require('sequelize');
+const db = require('./index');
+const Usuario = require('./usuario');
 
 const Manada = db.sequelize.define(
   'Manada',

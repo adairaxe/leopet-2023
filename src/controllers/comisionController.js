@@ -4,7 +4,7 @@ const _ = require('lodash');
 
 const { validateRequest } = require('../helpers');
 
-const Comision = require("../DB/comision");
+const Comision = require('../DB/comision');
 
 /**
  * Funcion para obtener la informacion de la cuenta bancaria registrada por una fundacion
@@ -12,7 +12,6 @@ const Comision = require("../DB/comision");
  * @param  {*} res
  * @return {Object} response
  */
-
 
 /**
  * Funcion para crear una cuenta bancaria de una fundacion en la BD
@@ -25,14 +24,14 @@ exports.crearComision = async (req, res) => {
   await validateRequest(req);
   try {
     const {
-      fundacionId,total_comision,total_pago,
+      fundacionId, total_comision, total_pago,
     } = req.body;
-    const cuenta = await Comision.create({      
+    const cuenta = await Comision.create({
       fundacion_id: fundacionId,
       total_comision,
       total_pago,
-      createdAt:Date.now(),
-      visible:true,
+      createdAt: Date.now(),
+      visible: true,
     });
 
     const response = {
@@ -49,7 +48,3 @@ exports.crearComision = async (req, res) => {
     return res.status(500).send(JSON.stringify(responseError));
   }
 };
-
-
-
-

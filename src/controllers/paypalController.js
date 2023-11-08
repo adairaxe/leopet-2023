@@ -4,9 +4,9 @@ const request = require('request');
 
 const { changeStatus } = require('./helpers');
 
-const ManadaAnimal = require("../DB/manada_animal");
-const Manada = require("../DB/manada");
-const Donacion = require("../DB/donacion");
+const ManadaAnimal = require('../DB/manada_animal');
+const Manada = require('../DB/manada');
+const Donacion = require('../DB/donacion');
 
 const auth = {
   user: process.env.PAYPAL_CLIENT,

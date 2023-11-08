@@ -1,6 +1,6 @@
-const aws = require("aws-sdk");
-const multer = require("multer");
-const multerS3 = require("multer-s3");
+const aws = require('aws-sdk');
+const multer = require('multer');
+const multerS3 = require('multer-s3');
 
 const { DIGITAL_ENDPOINT, DIGITAL_BUCKET } = process.env;
 
@@ -25,7 +25,6 @@ const upload = multer({
       cb(null, file.originalname);
     },
   }),
-}).single("upload");
-
+}).single('upload');
 
 module.exports = { upload, s3 };

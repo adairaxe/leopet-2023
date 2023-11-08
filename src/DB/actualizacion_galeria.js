@@ -1,22 +1,22 @@
-const db = require("../DB/index");
-const { DataTypes } = require("sequelize");
-const ActualizacionAnimal = require("../DB/actualizacion_animal");    
+const { DataTypes } = require('sequelize');
+const db = require('./index');
+const ActualizacionAnimal = require('./actualizacion_animal');
 
 const ActualizacionGaleria = db.sequelize.define(
   'ActualizacionGaleria',
   {
     actualizacion_id: {
       type: DataTypes.INTEGER,
-    },        
+    },
     url: {
-        type: DataTypes.STRING,
-      },
+      type: DataTypes.STRING,
+    },
     createdAt: {
-        type: DataTypes.DATE,
+      type: DataTypes.DATE,
     },
     updatedAt: {
-        type: DataTypes.DATE,
-    },        
+      type: DataTypes.DATE,
+    },
   },
   {
     tableName: 'actualizacion_galeria',
@@ -25,9 +25,8 @@ const ActualizacionGaleria = db.sequelize.define(
 
 ActualizacionGaleria.associate = () => {
   ActualizacionGaleria.belongsTo(ActualizacionAnimal, {
-        foreignKey: 'actualizacion_id',
-    });                
+    foreignKey: 'actualizacion_id',
+  });
 };
 
 module.exports = ActualizacionGaleria;
-  
