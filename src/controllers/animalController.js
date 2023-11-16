@@ -37,6 +37,7 @@ exports.createAnimal = async (req, res) => {
       vacunacion,
       desparasitacion,
     } = req.body;
+    console.log(User);
 
     if (!(await validateAdminFund(User.id))) {
       return res

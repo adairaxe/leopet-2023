@@ -45,7 +45,6 @@ describe('Como fundación quiero enviar una solicitud de registro', () => {
       const fundacionValid = await Fundacion.findOne({
         where : { ruc : '1234567890119'}
       });
-      console.log(fundacionValid);
 
       const userFundacion = {
         cedula: '0958700048',
@@ -59,58 +58,73 @@ describe('Como fundación quiero enviar una solicitud de registro', () => {
         fundacionId: fundacionValid.dataValues.id,
       };
     
-      const responseUser = await supertest(app)
+      const responseRegisterUser = await supertest(app)
         .post('/auth/register')
         .send(userFundacion);
-      expect(responseUser.status).toBe(200);
+      expect(responseRegisterUser.status).toBe(200);
+
+      const usuarioValido = await Usuario.findOne({
+        where : { cedula : '0958700048'}
+      });
+
+
+      const animalData = {
+        nombre: 'Max',
+        especie: 'Perro',
+        raza: 'Labrador',
+        descripcion: 'Max es un perro muy cariñoso y juguetón.',
+        imagen: 'https://example.com/max.jpg',
+        galeria: [],
+        peso: 20,
+        sexo: true,
+        enfermedades: '',
+        esterilizacion: true,
+        vacunacion: true,
+        desparasitacion: true,
+      };
+
+      const token = responseRegisterUser.body.result.token;
+      console.log(token);
+      const responseCreateAnimal = await supertest(app)
+        .post('/animal/create')
+        .set('Authorization', `Bearer ${token}`)
+        .send(animalData);
+      expect(responseCreateAnimal.status).toBe(200);
+
+      let deleteRAnimal = await Animal.destroy({
+        where: {  fundacion_id: fundacionValid.dataValues.id }
+      });
 
       let deleteRelation = await AdminFund.destroy({
         where: {  fundacion_id: fundacionValid.dataValues.id }
-      })
+      });
 
       let deleteUser = await Usuario.destroy({
-        where: {  cedula: '0958700048'  }
+        where: {  cedula: usuarioValido.dataValues.cedula  }
       });
 
       let deleteFoundation = await Fundacion.destroy({
-        where: {  ruc: '1234567890119'  }
+        where: {  ruc: fundacionValid.dataValues.ruc  }
       });
-
-      
-
-      /* const animalData = {
-      nombre: 'Max',
-      especie: 'Perro',
-      raza: 'Labrador',
-      descripcion: 'Max es un perro muy cariñoso y juguetón.',
-      imagen: 'https://example.com/max.jpg',
-      galeria: [],
-      peso: 20,
-      sexo: true,
-      enfermedades: '',
-      esterilizacion: true,
-      vacunacion: true,
-      desparasitacion: true,
-    };
-    const responseAnimal = await supertest(app)
-      .post('/animal/create', { User: userInDB.dataValues })
-      .send(animalData);
-    expect(responseAnimal.status).toBe(200); */
 
     
     } catch(error) {
       console.log(error);
 
-      let deleteRelation = AdminFund.destroy({
-        where: {  id: responseUser.data.id }
-      })
 
-      let deleteUser = Usuario.destroy({
-        where: {  cedula: '0958700048'  }
+      let deleteRAnimal = await Animal.destroy({
+        where: {  fundacion_id: fundacionValid.dataValues.id }
       });
 
-      let deleteFoundation = Fundacion.destroy({
-        where: {  ruc: '1234567890119'  }
+      let deleteRelation = await AdminFund.destroy({
+        where: {  fundacion_id: fundacionValid.dataValues.id }
+      });
+      let deleteUser = await Usuario.destroy({
+        where: {  cedula: usuarioValido.dataValues.cedula  }
+      });
+
+      let deleteFoundation = await Fundacion.destroy({
+        where: {  ruc: fundacionValid.dataValues.ruc  }
       });
 
     }
