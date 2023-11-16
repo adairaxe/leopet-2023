@@ -43,7 +43,7 @@ router.get('/especies', passport, AsyncWrapper(animalController.getEspecies));
 
 router.post(
   '/create',
-  // passport,
+  passport,
   validations.createAnimal,
   AsyncWrapper(animalController.createAnimal),
 );

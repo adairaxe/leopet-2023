@@ -117,7 +117,7 @@ exports.register = async (req, res) => {
 
     let User = await Usuario.findOne({
       where: {
-        email,
+        email : email
       },
     });
 

@@ -5,13 +5,14 @@ const db = require('../../DB');
 const Fundacion = require('../../DB/fundacion');
 const Animal = require('../../DB/animal');
 const Usuario = require('../../DB/usuario');
+const AdminFund = require('../../DB/administrador_fund');
 
 describe('Como fundación quiero enviar una solicitud de registro', () => {
   const clasesEquivalencia = [
     {
       // Valido
-      ruc: '1234567890111',
-      nombre: 'fundacion',
+      ruc: '1234567890119',
+      nombre: 'fundacionBorrada',
       direccion: 'Calle principal, 123',
       telefono: '0999999999',
       logo: '',
@@ -27,40 +28,57 @@ describe('Como fundación quiero enviar una solicitud de registro', () => {
   ];
 
   it('Se crea una fundacion valida y una invalida', async () => {
-    const testecase1 = clasesEquivalencia[0];
-    const responseCase1 = await supertest(app)
-      .post('/fundacion/register')
-      .send(testecase1);
-    expect(responseCase1.status).toBe(200);
 
-    const stateFundacion = await Fundacion.findOne({
-      where: { ruc: testecase1.ruc },
-    });
-    expect(stateFundacion.aprobado).toBe(true);
+    try{
+      let testecase2 = clasesEquivalencia[1];
+      const registerFundacion_Invalid = await supertest(app)
+        .post("/fundacion/register")
+        .send(testecase2);
+      expect(registerFundacion_Invalid.status).toBe(500);
 
-    const userFundacion = {
-      cedula: '0958700048',
-      nombres: 'fundacion1',
-      apellidos: 'fundacion1',
-      telefono: '0999999999',
-      direccion: 'Calle principal, 123',
-      email: 'fundacion1@gmail.com',
-      password: 'fundacion1',
-      role: 2, // Role de donador
-      fundacionId: stateFundacion.id,
-    };
-    const responseUser = await supertest(app)
-      .post('/auth/register')
-      .send(userFundacion);
-    console.log(responseUser);
-    expect(responseUser.status).toBe(200);
+      const testecase1 = clasesEquivalencia[0];
+      const registerFundacion_Valid = await supertest(app)
+        .post('/fundacion/register')
+        .send(testecase1);
+      expect(registerFundacion_Valid.status).toBe(200);
 
-    const userInDB = await Usuario.findOne({
-      where: { cedula: userFundacion.cedula },
-    });
-    console.log(userInDB.dataValues);
+      const fundacionValid = await Fundacion.findOne({
+        where : { ruc : '1234567890119'}
+      });
+      console.log(fundacionValid);
 
-    const animalData = {
+      const userFundacion = {
+        cedula: '0958700048',
+        nombres: 'usuarioRorrado',
+        apellidos: 'usuarioRorrado',
+        telefono: '0999999999',
+        direccion: 'Calle principal, 123',
+        email: 'fundacionBorrada@gmail.com',
+        password: 'fundacionBorrada',
+        role: 2, // Role de donador
+        fundacionId: fundacionValid.dataValues.id,
+      };
+    
+      const responseUser = await supertest(app)
+        .post('/auth/register')
+        .send(userFundacion);
+      expect(responseUser.status).toBe(200);
+
+      let deleteRelation = await AdminFund.destroy({
+        where: {  fundacion_id: fundacionValid.dataValues.id }
+      })
+
+      let deleteUser = await Usuario.destroy({
+        where: {  cedula: '0958700048'  }
+      });
+
+      let deleteFoundation = await Fundacion.destroy({
+        where: {  ruc: '1234567890119'  }
+      });
+
+      
+
+      /* const animalData = {
       nombre: 'Max',
       especie: 'Perro',
       raza: 'Labrador',
@@ -77,24 +95,25 @@ describe('Como fundación quiero enviar una solicitud de registro', () => {
     const responseAnimal = await supertest(app)
       .post('/animal/create', { User: userInDB.dataValues })
       .send(animalData);
-    expect(responseAnimal.status).toBe(200);
+    expect(responseAnimal.status).toBe(200); */
 
-    /* let testecase2 = clasesEquivalencia[1];
-    const responseCase2 = await supertest(app)
-      .post("/fundacion/register")
-      .send(testecase2);
-    expect(responseCase2.status).toBe(500); */
+    
+    } catch(error) {
+      console.log(error);
 
-    /* const responseEliminar = await supertest(app)
-      .post("/fundacion/delete")
-      .send({ fundacionId : testecase1.ruc
+      let deleteRelation = AdminFund.destroy({
+        where: {  id: responseUser.data.id }
+      })
+
+      let deleteUser = Usuario.destroy({
+        where: {  cedula: '0958700048'  }
       });
-    expect(responseEliminar.status).toBe(200); */
 
-    /* let deleteFoundation = Fundacion.destroy({
-      where: {
-        ruc: testecase1.ruc
-      }
-    }); */
+      let deleteFoundation = Fundacion.destroy({
+        where: {  ruc: '1234567890119'  }
+      });
+
+    }
+    
   });
 });

@@ -41,11 +41,13 @@ exports.createFundacion = async (req, res) => {
         .status(401)
         .send({ error: 'No esta autorizado para realizar esta operacion!' });
     }
+
     if (await validateFundacion(ruc)) {
       return res.status(400).send({
         error: 'Ya se encuentra registrada una fundacion con ese RUC',
       });
-    }
+    } 
+
     const fundacion = await Fundacion.create({
       ruc,
       nombre,
@@ -55,6 +57,7 @@ exports.createFundacion = async (req, res) => {
       comision,
       logo: '',
     });
+
     const response = {
       mensaje: 'Fundacion registrada exitosamente.',
       result: fundacion,
@@ -92,7 +95,6 @@ exports.registerFundacion = async (req, res) => {
       nombre,
       direccion,
       telefono,
-      // aprobado: false,
       aprobado: true,
       comision,
       logo: '',

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "start": "nodemon src/server.js",
-    "lint": "nodemon src/server.js --exec \"npx eslint src --fix\""
+    "lint": "nodemon src/server.js --exec \"npx eslint src --fix\"",
+    "testf": "jest ./src/test/FUS05/fundacion"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,7 @@
   "homepage": "https://github.com/Integradora2021/Back#readme",
   "dependencies": {
     "aws-sdk": "^2.1473.0",
-    "axios": "^0.21.4",
+    "axios": "^1.6.1",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dayjs": "^1.10.6",

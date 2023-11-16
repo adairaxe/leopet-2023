@@ -25,7 +25,7 @@ const Manada = require('../DB/manada');
 
 // DESCOMENTAR
 exports.createAnimal = async (req, res) => {
-  // await validateRequest(req);
+  await validateRequest(req);
   try {
     const { User } = req;
     const {
@@ -38,11 +38,11 @@ exports.createAnimal = async (req, res) => {
       desparasitacion,
     } = req.body;
 
-    /* if (!(await validateAdminFund(User.id))) {
+    if (!(await validateAdminFund(User.id))) {
       return res
         .status(401)
         .send({ error: 'No esta autorizado para realizar esta operacion!' });
-    } */
+    }
     const animal = await Animal.create({
       nombre,
       status: STATUS_ANIMAL.NO_APADRINADO,
@@ -51,8 +51,8 @@ exports.createAnimal = async (req, res) => {
       descripcion,
       imagen: '',
       galeria,
-      // fundacion_id: User.fundacionId,
-      fundacion_id: User.id,
+      fundacion_id: User.fundacionId,
+      //fundacion_id: User.id,
       visible: true,
       sexo,
       peso,
