@@ -1,37 +1,72 @@
 /* eslint-disable */
 const supertest = require('supertest');
 const app = require('../../app');
+const Animal = require('../../DB/animal');
+const Fundacion = require('../../DB/fundacion');
 
-describe('Como fundación quiero registrar nuevos animales en el sistema', () => {
-  it('Primero se debe crear el animal', async () => {
-    const newAnimal = {
-      nombre: 'Pancho',
-      especie: 'Gato',
-      raza: 'Birmano',
-      descripcion: 'Pancho es un gato muy activo y cazador. Le gusta comer bastante.',
-      imagen: 'https://www.purina.es/sites/default/files/styles/ttt_image_510/public/2021-02/CAT%20BREED%20Hero%20Mobile_0038_Birman.jpg?itok=4N5_yZCi',
-      galeria: [],
-      peso: 20,
-      sexo: true,
-      enfermedades: '',
-      esterilizacion: true,
-      vacunacion: true,
-      desparasitacion: true,
-    };
 
-    const usuario = {
-      ruc: '1234567890111',
-      nombre: 'XYZ',
-      direccion: 'Calle principal, 123',
-      telefono: '0999999999',
-      logo: '',
-    };
+const createAnimalWithoutLogin = async (animalData) => {
+  return supertest(app)
+    .post('/animal/create')    
+    .send(animalData);
+};
 
-    const res = await supertest(app)
-      .post('/animal/create', (req, res) => { req = usuario; })
-      .send(newAnimal);
-    expect(res.status).toBe(201); // Debería devolver un código de respuesta 201 (Created).
-    expect(res.body).toHaveProperty('id'); // Verificar si el cuerpo de la respuesta contiene un ID.
-    expect(res.body.nombre).toBe('Pancho'); // Verificar si el nombre del animal coincide.
+const createAnimal = async (animalData) => {
+  return supertest(app)
+    .post('/animal/create')
+    .set('Authorization', `Bearer ${token}`)
+    .send(animalData);
+};
+
+const loginResponse = async (dataUser) => {
+  return supertest(app)
+    .post('/auth/login')
+    .send(dataUser);
+}
+
+const newAnimal = {
+  nombre: 'Noi',
+  especie: 'Gato',
+  raza: 'Birmano',
+  descripcion: 'Pancho es un gato muy activo y cazador. Le gusta comer bastante.',
+  imagen: 'https://www.purina.es/sites/default/files/styles/ttt_image_510/public/2021-02/CAT%20BREED%20Hero%20Mobile_0038_Birman.jpg?itok=4N5_yZCi',
+  galeria: [],
+  peso: 20,
+  sexo: true,
+  enfermedades: '',
+  esterilizacion: true,
+  vacunacion: true,
+  desparasitacion: true,
+};
+
+describe('Registro de nuevos animales al sistema', () => {
+  it("se recibe una respuesta 401 ya que no se ha iniciado sesión como miembro de una fundación", async () => {
+    try {
+      const responseCreateAnimal = await createAnimalWithoutLogin(newAnimal);
+      expect(responseCreateAnimal.status).toBe(401);
+
+    } catch (error) {
+      console.log(error);
+    }
+
   });
+
+  it("Se recibe una respuesta 200 ya que se ha iniciado sesión como miembro de una fundación para luego crear un animal", async () => {
+    try {
+      dataUser_Foundation = {
+        email: 'refugiohuellitas@gmail.com', //email y contraseña de Ricardo Silva (Refugio Huellitas)
+        password: '1234'
+      }
+
+      const logingFundacion = await loginResponse(dataUser_Foundation);
+      const token_UserFoundation = await logingFundacion.body.result.token;
+      const responseCreateAnimal = await createAnimal(token_UserFoundation, newAnimal);
+      expect(responseCreateAnimal.status).toBe(200);
+
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
 });
+
