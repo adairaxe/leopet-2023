@@ -125,10 +125,11 @@ exports.updateAnimal = async (req, res) => {
       });
       response.mensaje = 'Informacion del animal actualizada.';
       response.result = animal;
+      console.log("actualizado");
     }
     return res.send(response);
   } catch (error) {
-    console.log('ERROR', error);
+    console.log('ERROR updateAnimal', error);
     const responseError = {
       message: 'Something bad happened!',
       error: error.stack,

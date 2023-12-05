@@ -30,10 +30,14 @@ exports.createProductManada = async (data) => {
       category: process.env.PRODUCT_CATEGORY || 'SERVICES',
     };
     const payloadProduct = await axios.post(
-      `${process.env.PAYPAL_URI}/v1/catalogs/products`,
+      //`${process.env.PAYPAL_URI}/v1/catalogs/products`,
+      "https://api-m.sandbox.paypal.com/v1/catalogs/products",
       product,
       config,
     );
+
+    await console.log(payloadProduct);
+
     const responseProduct = _.get(payloadProduct, 'data');
     const productId = _.get(responseProduct, 'id');
     const update = {
@@ -45,7 +49,7 @@ exports.createProductManada = async (data) => {
       where: { id: _.get(data, 'id') },
     });
   } catch (error) {
-    console.log('ERROR', error);
+    console.log('ERROR createProductManada:', error);
     throw new Error(error);
   }
 };
