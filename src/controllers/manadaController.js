@@ -44,7 +44,7 @@ exports.createManada = async (req, res) => {
     };
 
     //Here is the ERROR
-    //await createProductManada(data);
+    await createProductManada(data);
 
     const response = {
       mensaje: 'Manada creada exitosamente',
