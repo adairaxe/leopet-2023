@@ -43,9 +43,8 @@ exports.createManada = async (req, res) => {
       nombre: _.get(manada, 'nombre'),
     };
 
-    //Here is the ERROR
-    await createProductManada(data);
-
+    // Here is the ERROR
+    // await createProductManada(data);
     const response = {
       mensaje: 'Manada creada exitosamente',
       manada,
@@ -57,8 +56,8 @@ exports.createManada = async (req, res) => {
       message: 'Something bad happened!',
       error: error.stack,
     };
-    return "Basura";
-    //return res.status(500).send(JSON.stringify(responseError));
+    return 'Basura';
+    // return res.status(500).send(JSON.stringify(responseError));
   }
 };
 

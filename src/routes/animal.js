@@ -5,6 +5,9 @@ const { AsyncWrapper } = require('../helpers');
 // Controladores
 const animalController = require('../controllers/animalController');
 
+// Borrar
+const scripts = require('../scripts/managePhotos');
+
 // Middlewares
 const passport = require('../middlewares/passport');
 const validations = require('../controllers/validations');
@@ -64,4 +67,5 @@ router.delete(
 
 router.get('/search', passport, AsyncWrapper(animalController.searchAnimal));
 
+router.post('/savePhotoS3', scripts.preProcessDataAnimal);
 module.exports = router;

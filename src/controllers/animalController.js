@@ -53,7 +53,6 @@ exports.createAnimal = async (req, res) => {
       imagen: '',
       galeria,
       fundacion_id: User.fundacionId,
-      //fundacion_id: User.id,
       visible: true,
       sexo,
       peso,
@@ -125,7 +124,7 @@ exports.updateAnimal = async (req, res) => {
       });
       response.mensaje = 'Informacion del animal actualizada.';
       response.result = animal;
-      console.log("actualizado");
+      console.log('actualizado');
     }
     return res.send(response);
   } catch (error) {
