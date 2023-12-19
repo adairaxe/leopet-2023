@@ -50,6 +50,7 @@ exports.createActualizacion = async (req, res) => {
         animal_id,
       },
     });
+    console.log(manadasAnimal);
 
     for (const manadaAnimal of manadasAnimal.rows) {
       const manadaId = _.get(manadaAnimal, 'manada_id');
@@ -69,6 +70,7 @@ exports.createActualizacion = async (req, res) => {
         visible: true,
         leido: false,
       });
+      console.log(notificacion);
       notificaciones.push(notificacion);
     }
 
