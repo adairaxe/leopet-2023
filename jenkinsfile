@@ -4,6 +4,11 @@ pipeline {
     tools {nodejs "node"}
     
     stages {
+	stage('Clean Workspace') {
+            steps {
+                deleteDir()
+            }
+        }
         stage('Cloning Git') {
             steps {
                 git 'https://github.com/leopet-devs/leopet-backend'
