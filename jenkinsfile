@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Cloning Git') {
             steps {
-                git branch: 'main, credentialsId: '57d8a65a-a516-4b08-9f42-b6f1290fa293', url: 'https://github.com/leopet-devs/leopet-backend'
+                git 'https://github.com/leopet-devs/leopet-backend'
             }
         }
         stage('Install Dependencies'){
