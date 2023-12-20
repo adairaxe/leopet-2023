@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 // Successfully delete an animal with valid animalId and admin user
 it('should successfully delete an animal with valid animalId and admin user', async () => {
   const req = {

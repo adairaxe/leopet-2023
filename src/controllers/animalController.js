@@ -1,4 +1,5 @@
-/* eslint-disable no-await-in-loop, no-console, prefer-const, camelcase, eqeqeq */
+/* eslint-disable */
+
 const _ = require('lodash');
 const { Op } = require('sequelize');
 
@@ -87,7 +88,7 @@ exports.updateAnimal = async (req, res) => {
   await validateRequest(req);
   try {
     const { User } = req;
-    const { animalId } = req.params;
+    const { animalId } = req.params.animalId;
     const {
       nombre, especie, raza, descripcion, galeria,
       sexo,

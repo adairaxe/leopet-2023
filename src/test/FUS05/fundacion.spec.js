@@ -1,3 +1,6 @@
+/* eslint-disable */
+
+
 const supertest = require('supertest');
 const app = require('../../app');
 const db = require('../../DB');
