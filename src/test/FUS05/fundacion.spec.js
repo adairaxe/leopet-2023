@@ -74,7 +74,7 @@ describe('Como fundación quiero enviar una solicitud de registro', () => {
     },
   ];
 
-  it('Se crea una fundacion, se logea y registra un animal', async () => {
+  it('Se crea una fundación y se vincula un usario a esa fundación, se logea y registra un animal', async () => {
     try {
       const testecase1 = clasesEquivalencia[0];
       const registerFundacionValid = await registerFundacion(testecase1);

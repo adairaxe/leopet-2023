@@ -30,8 +30,7 @@ exports.createProductManada = async (data) => {
       category: process.env.PRODUCT_CATEGORY || 'SERVICES',
     };
     const payloadProduct = await axios.post(
-      //`${process.env.PAYPAL_URI}/v1/catalogs/products`,
-      "https://api-m.sandbox.paypal.com/v1/catalogs/products",
+      `${process.env.PAYPAL_URI}/v1/catalogs/products`,
       product,
       config,
     );
