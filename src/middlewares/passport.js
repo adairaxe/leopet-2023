@@ -17,7 +17,7 @@ const authenticateToken = async (req, res, next) => {
 
     const decode = jwt.verify(token, JWT_SECRET);
     const User = await Usuario.findOne({
-      where: {  id: decode.id }
+      where: { id: decode.id },
     });
 
     if (_.isEmpty(User)) {
@@ -31,7 +31,7 @@ const authenticateToken = async (req, res, next) => {
 
     if (_.isEqual(decode.role, ROL.ADMIN_FUND.ROL_ID)) {
       const admin = await AdminFund.findOne({
-        where: {  id: decode.id }
+        where: { id: decode.id },
       });
 
       data.fundacionId = admin.fundacion_id;
@@ -39,7 +39,6 @@ const authenticateToken = async (req, res, next) => {
 
     req.User = data;
     return next();
-
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log('ERROR', error);
