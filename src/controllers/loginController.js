@@ -117,13 +117,17 @@ exports.register = async (req, res) => {
 
     let User = await Usuario.findOne({
       where: {
-        email : email
+        email,
       },
     });
 
     // Usuario existe
     if (User) {
       return res.status(401).send(unAuthorizedResponse);
+    }
+
+    if (cedula.length !== 10) {
+      return res.status(500).send(JSON.stringify('revise su cedula'));
     }
 
     const saltRounds = 10;

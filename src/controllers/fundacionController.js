@@ -11,6 +11,7 @@ const {
   validateSuperAdmin,
   parseDataPadrinosAnimal,
   parseDataAnimalComision,
+  validateFundacionRegister,
 } = require('./helpers');
 // } = require('./helpers');
 
@@ -46,7 +47,7 @@ exports.createFundacion = async (req, res) => {
       return res.status(400).send({
         error: 'Ya se encuentra registrada una fundacion con ese RUC',
       });
-    } 
+    }
 
     const fundacion = await Fundacion.create({
       ruc,
@@ -85,11 +86,17 @@ exports.registerFundacion = async (req, res) => {
     const {
       ruc, nombre, direccion, telefono, comision,
     } = req.body;
+
     if (await validateFundacion(ruc)) {
       return res.status(400).send({
         error: 'La Fundación ya ha registrado una solicitud',
       });
     }
+
+    if (!(await validateFundacionRegister(ruc))) {
+      return res.status(500).send(JSON.stringify('Ruc incorrecto'));
+    }
+
     const fundacion = await Fundacion.create({
       ruc,
       nombre,

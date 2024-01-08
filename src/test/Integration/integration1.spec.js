@@ -64,8 +64,7 @@ const deleteEntitiesNormalUser = async (cedula, nameManada) => {
 describe('Como fundación quiero enviar una solicitud de registro', () => {
   const clasesEquivalencia = [
     {
-      // Valido
-      ruc: '1234567890119',
+      ruc: '1234567890001',
       nombre: 'fundacionValida',
       direccion: 'Calle principal, 123',
       telefono: '0999999999',
@@ -80,7 +79,7 @@ describe('Como fundación quiero enviar una solicitud de registro', () => {
       const registerFundacionValid = await registerFundacion(testecase1);
       expect(registerFundacionValid.status).toBe(200);
 
-      const fundacionValid = await findFundacionByRuc('1234567890119');
+      const fundacionValid = await findFundacionByRuc(testecase1.ruc);
       const userFundacion = {
         cedula: '0958700048',
         nombres: 'usuarioFundacion',
@@ -164,7 +163,7 @@ describe('Como fundación quiero enviar una solicitud de registro', () => {
   afterAll(async () => {
     // Clean up the test data
     const usuarioValido = await findUsuarioByCedula('0958700048');
-    const fundacionValid = await findFundacionByRuc('1234567890119');
+    const fundacionValid = await findFundacionByRuc('1234567890001');
 
     if (fundacionValid && usuarioValido) {
       await deleteEntitiesFoundation(fundacionValid.dataValues.id, usuarioValido.dataValues.cedula);
