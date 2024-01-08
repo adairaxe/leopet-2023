@@ -1,33 +1,7 @@
 pipeline {
     agent any
 
-    environment {
-        NODE_ENV='development'; 
-        PORT='8181'; 
-        MYSQL_DATABASE='integradoradb'; 
-        MYSQL_USER='galo'; 
-        MYSQL_ROOT_PASSWORD='galo'; 
-        MYSQL_ROOT_PORT='3306'; 
-        MYSQL_HOSTNAME='localhost'; 
-        SALT_ROUNDS='10'; 
-        AWS_REGION=''; 
-        S3_BUCKET='leopetimg'; 
-        AWS_ACCESS_KEY_ID='AKIAVVMGP66DI375N25G'; 
-        AWS_SECRET_ACCESS_KEY='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'; 
-        PAYPAL_CLIENT ='AdcowbeNyqIBUo1_m2iLbJTj8OyHiabL54PH2XdkG4_inlSwjedWY-OrUwME0KIYr6iQ1DxlDD6NNrOp'; 
-        PAYPAL_SECRET ='EIdQeRSCqsUxRQMT2TPwCGTmP7pIHkNAavv0cYwKpgqppc9kvcs9PRp96Vv3zon97ZNzNzGo861talOc'; 
-        PAYPAL_URI ='https://api-m.sandbox.paypal.com'; 
-        PRODUCT_TYPE ='SERVICE'; 
-        PRODUCT_CATEGORY ='SERVICES'; 
-        DIGITAL_ACCESS_KEY_ID='AKIAVVMGP66DI375N25G'; 
-        DIGITAL_SECRET_ACCESS_KEY='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'; 
-        DIGITAL_BUCKET='leopetimg'; 
-        DIGITAL_ENDPOINT='https://s3.amazonaws.com/'; 
-        AWS_ACCESS_KEY_ID_viejo='AKIA4CNTKQVSAUATYPAE'; 
-        AWS_SECRET_ACCESS_KEY_viejo='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'; 
-        AWS_REGION_viejo='us-east-2'; 
-        S3_BUCKET_viejo='proyecto.imagenes'; 
-    }
+    
     
     tools {nodejs 'node'}
     
