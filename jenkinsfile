@@ -44,12 +44,7 @@ pipeline {
     }
     stage('Install Dependencies'){
         steps {
-            sh '
-                set -a
-                . ./.env
-                set +a
-                npm install
-            '	
+            sh 'npm install'	
         }
     }
     stage ('Test') {
