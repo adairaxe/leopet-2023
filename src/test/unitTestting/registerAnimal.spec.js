@@ -22,8 +22,8 @@ const deleteAnimal = async (nombreAnimal) => {
 
 describe('Pruebas para la Fundación Peludos sin Hogar', () => {
   const userFoundation = {
-    email: 'fundacion@gmail.com',
-    password: 'fundacion',
+    email: 'colitafeliz@gmail.com',
+    password: '1234',
   };
 
   const animalFoundation = {

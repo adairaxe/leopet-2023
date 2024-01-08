@@ -59,6 +59,7 @@ describe('Pruebas para la Fundación Peludos sin Hogar', () => {
 
   it('Test 1: Usuario registrado', async () => {
     const registerNormalUser = await registerUser(userNormal);
+    console.log(registerNormalUser.body)
     expect(registerNormalUser.status).toBe(200);
   });
 
