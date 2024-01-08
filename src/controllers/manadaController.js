@@ -1,9 +1,7 @@
 /* eslint-disable no-await-in-loop, no-console */
 const _ = require('lodash');
 const { Op } = require('sequelize');
-
 const { validateRequest } = require('../helpers');
-const { createProductManada } = require('./helpersPayPal');
 
 const {
   getHistorialAnimal,
@@ -38,13 +36,7 @@ exports.createManada = async (req, res) => {
       status: 1,
       galeriamanada,
     });
-    const data = {
-      id: _.get(manada, 'id'),
-      nombre: _.get(manada, 'nombre'),
-    };
 
-    // Here is the ERROR
-    // await createProductManada(data);
     const response = {
       mensaje: 'Manada creada exitosamente',
       manada,
@@ -56,8 +48,7 @@ exports.createManada = async (req, res) => {
       message: 'Something bad happened!',
       error: error.stack,
     };
-    return 'Basura';
-    // return res.status(500).send(JSON.stringify(responseError));
+    return res.status(500).send(JSON.stringify(responseError));
   }
 };
 
