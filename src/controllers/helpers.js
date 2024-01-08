@@ -400,7 +400,7 @@ exports.validateFundacion = async (ruc) => {
   try {
     const data = await Fundacion.findOne({
       where: {
-        ruc: ruc
+        ruc,
       },
     });
     if (_.isEmpty(data)) {
@@ -412,6 +412,20 @@ exports.validateFundacion = async (ruc) => {
   }
 };
 
+exports.validateFundacionRegister = async (ruc) => {
+  try {
+    if (ruc.length !== 13) {
+      return false;
+    }
+    const ultimosTresDigitos = ruc.slice(-3);
+    if (ultimosTresDigitos !== '001') {
+      return false;
+    }
+    return true;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
 
 /**
  * Funcion para actualizar el estado de una animal cuando es apadrinado,
