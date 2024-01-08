@@ -1,9 +1,7 @@
 /* eslint-disable no-await-in-loop, no-console */
 const _ = require('lodash');
 const { Op } = require('sequelize');
-
 const { validateRequest } = require('../helpers');
-const { createProductManada } = require('./helpersPayPal');
 
 const {
   getHistorialAnimal,
@@ -38,10 +36,6 @@ exports.createManada = async (req, res) => {
       status: 1,
       galeriamanada,
     });
-    const data = {
-      id: _.get(manada, 'id'),
-      nombre: _.get(manada, 'nombre'),
-    };
 
     const response = {
       mensaje: 'Manada creada exitosamente',
