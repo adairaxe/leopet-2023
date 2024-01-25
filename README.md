@@ -18,7 +18,7 @@ Solicitar archivo **.env** para las varibles de entorno
 ## Jenkins CI/CD
 1. Levantar Jenkins con `sudo systemctl start jenkins`
 2. Ingresar a la url `http://localhost:8080/`
-3. Ingresar con el usuario `admin` y la contraseña que se encuentra en el archivo `/var/lib/jenkins/secrets/initialAdminPassword`
+3. Ingresar con el usuario `admin` y la contraseña que se encuentra en el archivo `/var/lib/jenkins/secrets/initialAdminPassword` 
 4. Levantar el servidor de node con `npm start`
-5. Exponer el servidor de node con `ngrok http 8080`
-6. Copiar la url que genera ngrok y pegarla en `https://github.com/leopet-de6. Copiar la url que genera ngrok y pegarla en `https://github.com/leopet-devs/leopet-backend/settings/hooks/449999197` en la sección `Payload URL`. Se debe actualizar solo la parte después de `@`.
+5. Exponer el servidor de node con `ngrok http --domain=piglet-apparent-scorpion.ngrok-free.app 80`
+6. Dirigirse a la url del paso 5 para usar la herramienta.
